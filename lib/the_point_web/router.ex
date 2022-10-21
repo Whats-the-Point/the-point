@@ -21,8 +21,10 @@ defmodule ThePointWeb.Router do
   scope "/api/v1", ThePointWeb.API.V1, as: :api_v1 do
     pipe_through :api
 
-    resources "/registration", RegistrationController, singleton: true, only: [:create]
-    resources "/session", SessionController, singleton: true, only: [:create, :delete]
+    # resources "/registration", RegistrationController, singleton: true, only: [:create]
+    # resources "/session", SessionController, singleton: true, only: [:create, :delete]
+
+    resources "/session", SessionController, singleton: true, only: [:delete]
     post "/session/renew", SessionController, :renew
 
     get "/auth/:provider/new", AuthorizationController, :new
