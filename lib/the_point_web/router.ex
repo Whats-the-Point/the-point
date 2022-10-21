@@ -1,8 +1,14 @@
 defmodule ThePointWeb.Router do
   use ThePointWeb, :router
+  use Pow.Phoenix.Router
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug ThePointWeb.APIAuthPlug, otp_app: :the_point
+  end
+
+  pipeline :api_protected do
+    plug Pow.Plug.RequireAuthenticated, error_handler: ThePointWeb.APIAuthErrorHandler
   end
 
   scope "/", ThePointWeb do
@@ -12,10 +18,18 @@ defmodule ThePointWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  scope "/api", ThePointWeb do
+  scope "/api/v1", ThePointWeb.API.V1, as: :api_v1 do
     pipe_through :api
 
-    get "/roll", RollController, :index
+    resources "/registration", RegistrationController, singleton: true, only: [:create]
+    resources "/session", SessionController, singleton: true, only: [:create, :delete]
+    post "/session/renew", SessionController, :renew
+  end
+
+  scope "/api/v1", ThePointWeb.API.V1, as: :api_v1 do
+    pipe_through [:api, :api_protected]
+
+    # protected API endpoints here
   end
 
   if Mix.env() == :dev do

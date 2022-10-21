@@ -10,8 +10,6 @@ defmodule ThePointWeb.Endpoint do
     signing_salt: "cX3tuTaI"
   ]
 
-  socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
-
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phx.digest
@@ -39,5 +37,6 @@ defmodule ThePointWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+  plug Pow.Plug.Session, otp_app: :the_point
   plug ThePointWeb.Router
 end
