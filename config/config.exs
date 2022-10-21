@@ -58,8 +58,8 @@ config :the_point, :pow_assent,
       client_id: System.get_env("GOOGLE_CLIENT_ID"),
       client_secret: System.get_env("GOOGLE_CLIENT_SECRET"),
       strategy: Assent.Strategy.Google
+    ]
   ]
-]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

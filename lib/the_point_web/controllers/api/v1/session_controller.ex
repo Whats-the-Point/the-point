@@ -10,7 +10,12 @@ defmodule ThePointWeb.API.V1.SessionController do
     |> Pow.Plug.authenticate_user(user_params)
     |> case do
       {:ok, conn} ->
-        json(conn, %{data: %{access_token: conn.private.api_access_token, renewal_token: conn.private.api_renewal_token}})
+        json(conn, %{
+          data: %{
+            access_token: conn.private.api_access_token,
+            renewal_token: conn.private.api_renewal_token
+          }
+        })
 
       {:error, conn} ->
         conn
@@ -32,7 +37,12 @@ defmodule ThePointWeb.API.V1.SessionController do
         |> json(%{error: %{status: 401, message: "Invalid token"}})
 
       {conn, _user} ->
-        json(conn, %{data: %{access_token: conn.private.api_access_token, renewal_token: conn.private.api_renewal_token}})
+        json(conn, %{
+          data: %{
+            access_token: conn.private.api_access_token,
+            renewal_token: conn.private.api_renewal_token
+          }
+        })
     end
   end
 

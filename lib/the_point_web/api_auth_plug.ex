@@ -13,8 +13,8 @@ defmodule ThePointWeb.APIAuthPlug do
   @spec fetch(Conn.t(), Config.t()) :: {Conn.t(), map() | nil}
   def fetch(conn, config) do
     with {:ok, signed_token} <- fetch_access_token(conn),
-         {:ok, token}        <- verify_token(conn, signed_token, config),
-         {user, _metadata}   <- CredentialsCache.get(store_config(config), token) do
+         {:ok, token} <- verify_token(conn, signed_token, config),
+         {user, _metadata} <- CredentialsCache.get(store_config(config), token) do
       {conn, user}
     else
       _any -> {conn, nil}
@@ -31,8 +31,8 @@ defmodule ThePointWeb.APIAuthPlug do
   @impl true
   @spec create(Conn.t(), map(), Config.t()) :: {Conn.t(), map()}
   def create(conn, user, config) do
-    store_config  = store_config(config)
-    access_token  = Pow.UUID.generate()
+    store_config = store_config(config)
+    access_token = Pow.UUID.generate()
     renewal_token = Pow.UUID.generate()
 
     conn =
@@ -44,7 +44,12 @@ defmodule ThePointWeb.APIAuthPlug do
         # `:ttl`, `Keyword.put(store_config, :ttl, :timer.minutes(10))` can be
         # passed in as the first argument instead of `store_config`.
         CredentialsCache.put(store_config, access_token, {user, [renewal_token: renewal_token]})
-        PersistentSessionCache.put(store_config, renewal_token, {user, [access_token: access_token]})
+
+        PersistentSessionCache.put(
+          store_config,
+          renewal_token,
+          {user, [access_token: access_token]}
+        )
 
         conn
       end)
@@ -63,9 +68,8 @@ defmodule ThePointWeb.APIAuthPlug do
     store_config = store_config(config)
 
     with {:ok, signed_token} <- fetch_access_token(conn),
-         {:ok, token}        <- verify_token(conn, signed_token, config),
-         {_user, metadata}   <- CredentialsCache.get(store_config, token) do
-
+         {:ok, token} <- verify_token(conn, signed_token, config),
+         {_user, metadata} <- CredentialsCache.get(store_config, token) do
       Conn.register_before_send(conn, fn conn ->
         PersistentSessionCache.delete(store_config, metadata[:renewal_token])
         CredentialsCache.delete(store_config, token)
@@ -91,9 +95,8 @@ defmodule ThePointWeb.APIAuthPlug do
     store_config = store_config(config)
 
     with {:ok, signed_token} <- fetch_access_token(conn),
-         {:ok, token}        <- verify_token(conn, signed_token, config),
-         {user, metadata}    <- PersistentSessionCache.get(store_config, token) do
-
+         {:ok, token} <- verify_token(conn, signed_token, config),
+         {user, metadata} <- PersistentSessionCache.get(store_config, token) do
       {conn, user} = create(conn, user, config)
 
       conn =
@@ -119,7 +122,7 @@ defmodule ThePointWeb.APIAuthPlug do
   defp fetch_access_token(conn) do
     case Conn.get_req_header(conn, "authorization") do
       [token | _rest] -> {:ok, token}
-      _any            -> :error
+      _any -> :error
     end
   end
 

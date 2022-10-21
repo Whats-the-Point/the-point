@@ -1,4 +1,5 @@
 defmodule ThePointWeb.APIAuthErrorHandler do
+  @moduledoc false
   use ThePointWeb, :controller
   alias Plug.Conn
 
