@@ -6,7 +6,7 @@ defmodule ThePointWeb.Router do
   end
 
   scope "/", ThePointWeb do
-    pipe_through :browser
+    pipe_through :api
 
     get "/", PageController, :index
   end
