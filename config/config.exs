@@ -8,7 +8,8 @@
 import Config
 
 config :the_point,
-  ecto_repos: [ThePoint.Repo]
+  ecto_repos: [ThePoint.Repo],
+  oauth_redirect_link: System.get_env("REDIRECT_URL")
 
 # Configures the endpoint
 config :the_point, ThePointWeb.Endpoint,
@@ -50,6 +51,15 @@ config :phoenix, :json_library, Jason
 config :the_point, :pow,
   user: ThePoint.Users.User,
   repo: ThePoint.Repo
+
+config :the_point, :pow_assent,
+  providers: [
+    google: [
+      client_id: System.get_env("GOOGLE_CLIENT_ID"),
+      client_secret: System.get_env("GOOGLE_CLIENT_SECRET"),
+      strategy: Assent.Strategy.Google
+  ]
+]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
