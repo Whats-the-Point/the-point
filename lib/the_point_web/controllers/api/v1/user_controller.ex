@@ -7,6 +7,28 @@ defmodule ThePointWeb.API.V1.UserController do
   plug :reload_user
 
   @doc """
+  Get user profile info
+
+  ## Request:
+
+  `GET /api/v1/user`
+
+  Response 200:
+
+    {
+      "email": "email@email.com",
+      "name": "John Doe",
+      "short_slug": "MLIN4H",
+      "status": "active",
+      "username": "john_doe"
+    }
+
+  """
+  def show(conn, _, current_user) do
+    render(conn, "success.json", %{user: current_user})
+  end
+
+  @doc """
   Completes fields for user after successfull register
 
   ## Request:
@@ -42,11 +64,9 @@ defmodule ThePointWeb.API.V1.UserController do
     end
   end
 
-
-
   defp reload_user(conn, _opts) do
-    config        = Pow.Plug.fetch_config(conn)
-    user          = Pow.Plug.current_user(conn, config)
+    config = Pow.Plug.fetch_config(conn)
+    user = Pow.Plug.current_user(conn, config)
     reloaded_user = ThePoint.Repo.get!(ThePoint.Users.User, user.id)
 
     Pow.Plug.assign_current_user(conn, reloaded_user, config)
