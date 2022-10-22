@@ -4,9 +4,6 @@ defmodule ThePoint.Users.User do
   use Pow.Ecto.Schema
   use PowAssent.Ecto.Schema
 
-  import Pow.Ecto.Schema.Changeset,
-  only: [new_password_changeset: 3]
-
   import Ecto.Changeset
 
   schema "users" do
