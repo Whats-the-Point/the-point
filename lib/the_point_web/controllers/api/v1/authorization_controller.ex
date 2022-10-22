@@ -36,7 +36,8 @@ defmodule ThePointWeb.API.V1.AuthorizationController do
         json(conn, %{
           data: %{
             access_token: conn.private.api_access_token,
-            renewal_token: conn.private.api_renewal_token
+            renewal_token: conn.private.api_renewal_token,
+            user_status: conn.assigns.current_user.status
           }
         })
 

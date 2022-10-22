@@ -35,6 +35,7 @@ defmodule ThePointWeb.Router do
     pipe_through [:api, :api_protected]
 
     # protected API endpoints here
+    post "/user/complete-profile", UserController, :complete_profile
   end
 
   if Mix.env() == :dev do
