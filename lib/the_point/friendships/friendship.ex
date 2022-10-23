@@ -4,13 +4,16 @@ defmodule ThePoint.Friendships.Friendship do
 
   import Ecto.Changeset
 
+  alias ThePoint.Users.User
+
   schema "friendships" do
     field :status, Ecto.Enum,
       values: [:requested, :accepted, :blocked],
       default: :requested
 
-    field :addressee_id, :id
-    field :requester_id, :id
+    belongs_to :addressee, User
+    belongs_to :requester, User
+
     timestamps()
   end
 

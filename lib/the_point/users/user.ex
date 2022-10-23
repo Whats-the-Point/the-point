@@ -6,7 +6,6 @@ defmodule ThePoint.Users.User do
 
   import Ecto.Changeset
 
-  alias ThePoint.Users.User
   alias ThePoint.Friendships.Friendship
 
   schema "users" do
@@ -17,15 +16,8 @@ defmodule ThePoint.Users.User do
 
     pow_user_fields()
 
-    many_to_many :friendships,
-                 User,
-                 join_through: Friendship,
-                 join_keys: [requester_id: :id, addressee_id: :id]
-
-    many_to_many :reverse_friendships,
-                 User,
-                 join_through: Friendship,
-                 join_keys: [addressee_id: :id, requester_id: :id]
+    has_many :friendships, Friendship, foreign_key: :requester_id
+    has_many :reverse_friendships, Friendship, foreign_key: :addressee_id
 
     timestamps()
   end

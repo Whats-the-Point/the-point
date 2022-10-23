@@ -4,8 +4,8 @@ defmodule ThePoint.Repo.Migrations.CreateFriendshipTable do
   def change do
     create table(:friendships) do
       add :status, :string
-      add :addressee_id, references(:users)
-      add :requester_id, references(:users)
+      add :addressee_id, references(:users, on_delete: :nothing)
+      add :requester_id, references(:users, on_delete: :nothing)
       timestamps()
     end
 
