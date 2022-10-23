@@ -10,9 +10,8 @@ defmodule ThePoint.Handler.User do
   def complete_profile(%{status: :initiated} = user, params) do
     attrs = SanitizeParams.call(params, ["name", "username"])
 
-    with {:ok, user} <- Users.update_user(user, Map.merge(attrs, %{status: :active})),
-         {:ok, user} <- SetShortSlug.call(user) do
-      {:ok, user}
+    with {:ok, user} <- Users.update_user(user, Map.merge(attrs, %{status: :active})) do
+      SetShortSlug.call(user)
     end
   end
 
@@ -49,6 +48,7 @@ defmodule ThePoint.Handler.User do
         Users.update_friendship(friendship, %{status: status})
     end
   end
+
   def change_friendship_status(_, _),
     do: {:error, 422, "params not valid"}
 
