@@ -44,6 +44,7 @@ defmodule ThePoint.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:credo, "~> 1.6", only: [:dev, :test]},
+      {:ex_machina, "~> 2.7", only: [:test, :dev]},
       {:sobelow, "~> 0.10", only: [:dev, :test], runtime: false},
       {:pow, "~> 1.0.27"},
       {:pow_assent, "~> 0.4.13"},
