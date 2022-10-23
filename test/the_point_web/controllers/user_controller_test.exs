@@ -48,11 +48,7 @@ defmodule ThePointWeb.API.V1.UserControllerTest do
         |> post(Routes.api_v1_user_path(conn, :complete_profile), params)
         |> json_response(:ok)
 
-      assert response["name"]
-      assert response["email"]
-      assert response["username"]
-      assert response["short_slug"]
-      assert response["status"]
+      assert response == %{"data" => %{"status" => "ok"}}
     end
 
     test "returns errors with missing params", %{conn: conn} do
