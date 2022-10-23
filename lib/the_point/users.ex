@@ -120,7 +120,7 @@ defmodule ThePoint.Users do
   def get_user_friendship(user_id, id) do
     query =
       from(fs in Friendship,
-        where: fs.addressee_id == ^user_id or fs.requested_id == ^user_id,
+        where: fs.addressee_id == ^user_id or fs.requester_id == ^user_id,
         where: fs.id == ^id and fs.status in [:requested, :accepted]
       )
 
@@ -136,7 +136,7 @@ defmodule ThePoint.Users do
   def update_friendship(%Friendship{} = friendship, attrs \\ %{}) do
     friendship
     |> Friendship.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.update()
   end
 
   def delete_friendship(%Friendship{} = friendship) do
