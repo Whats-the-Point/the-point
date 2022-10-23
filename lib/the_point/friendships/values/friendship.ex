@@ -1,9 +1,9 @@
-defmodule ThePoint.Value.Friendship do
+defmodule ThePoint.Friendships.Values.Friendship do
   @moduledoc false
 
   alias ThePoint.Composite.Value
   alias ThePoint.Friendships.Friendship
-  alias ThePoint.Value.User
+  alias ThePoint.Users.Values.User
 
   def build(friendships) when is_list(friendships),
     do: Enum.map(friendships, &build/1)

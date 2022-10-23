@@ -2,7 +2,7 @@ defmodule ThePointWeb.API.V1.UserController do
   use ThePointWeb, :controller
   use ThePointWeb.CurrentUser
 
-  alias ThePoint.Handler.User
+  alias ThePoint.Users.Handler.User
 
   action_fallback(ThePointWeb.API.V1.FallbackController)
 

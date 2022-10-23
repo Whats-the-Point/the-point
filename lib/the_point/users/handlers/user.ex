@@ -1,11 +1,11 @@
-defmodule ThePoint.Handler.User do
+defmodule ThePoint.Users.Handler.User do
   @moduledoc """
   Handler for User
   """
 
   alias ThePoint.Service.SanitizeParams
   alias ThePoint.Services.SetShortSlug
-  alias ThePoint.Users
+  alias ThePoint.Users.Users
 
   def complete_profile(%{status: :initiated} = user, params) do
     attrs = SanitizeParams.call(params, ["name", "username"])

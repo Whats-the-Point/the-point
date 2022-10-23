@@ -1,4 +1,4 @@
-defmodule ThePoint.Value.User do
+defmodule ThePoint.Users.Values.User do
   @moduledoc false
 
   alias ThePoint.Composite.Value

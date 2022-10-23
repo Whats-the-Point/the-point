@@ -1,6 +1,6 @@
 # Users
 
-alias ThePoint.Users
+alias ThePoint.Users.Users
 alias ThePoint.Services.SetShortSlug
 
 {:ok, eric_cartman} =

@@ -2,8 +2,8 @@ defmodule ThePointWeb.API.V1.FriendshipView do
   use ThePointWeb, :view
 
   alias ThePoint.Value.Response
-  alias ThePoint.Value.User
-  alias ThePoint.Value.Friendship
+  alias ThePoint.Users.Values.User
+  alias ThePoint.Friendships.Values.Friendship
 
   def render("index.json", %{friends: friends}) do
     friends
