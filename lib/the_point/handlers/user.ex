@@ -30,4 +30,13 @@ defmodule ThePoint.Handler.User do
         {:error, 422, "friendship already exists"}
     end
   end
+
+  def get_accepted_friendships(current_user),
+    do: Users.get_friends_with_status(current_user.id, :accepted)
+
+  def get_requested_friendships(current_user),
+    do: Users.get_friends_with_status(current_user.id, :requested)
+
+  def get_blocked_friendships(current_user),
+    do: Users.get_friends_with_status(current_user.id, :blocked)
 end

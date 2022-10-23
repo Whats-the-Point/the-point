@@ -53,6 +53,27 @@ defmodule ThePoint.Users do
     |> Repo.update()
   end
 
+  def get_friends_with_status(user_id, status) when status in [:accepted, :requested, :blocked] do
+    requested_friends =
+      from(user in User,
+        join: fs in assoc(user, :friendships),
+        where: fs.addressee_id == ^user_id and fs.status == ^status,
+        where: user.id != ^user_id
+      )
+
+    addressed_friends =
+      from(user in User,
+        join: fs in assoc(user, :reverse_friendships),
+        where: fs.requester_id == ^user_id and fs.status == ^status,
+        where: user.id != ^user_id
+      )
+
+    Repo.all(requested_friends) ++ Repo.all(addressed_friends)
+  end
+
+  def get_friends_with_status(_user_id, status),
+    do: {:error, {:unprocessable_entity, "#{status} not available for friendships"}}
+
   def create_friendship(attrs \\ %{}) do
     %Friendship{}
     |> Friendship.changeset(attrs)
@@ -66,13 +87,5 @@ defmodule ThePoint.Users do
       )
 
     Repo.exists?(query)
-  end
-
-  @spec get_user_friendships_by_id(any) :: any
-  def get_user_friendships_by_id(id) do
-    query =
-      from(user in User, where: user.id == ^id, preload: [:friendships, :reverse_friendships])
-
-    Repo.all(query)
   end
 end
