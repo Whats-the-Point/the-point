@@ -5,6 +5,7 @@ defmodule ThePoint.Users.Handler.User do
 
   alias ThePoint.Service.SanitizeParams
   alias ThePoint.Services.SetShortSlug
+  alias ThePoint.Users.Services.SubmitNewFriendship
   alias ThePoint.Users.Users
 
   def complete_profile(%{status: :initiated} = user, params) do
@@ -17,23 +18,10 @@ defmodule ThePoint.Users.Handler.User do
 
   def complete_profile(_, _), do: {:error, 422, "user already active"}
 
-  def submit_new_friendship(current_user, params) do
-    with {:ok, addressee_short_slug} <- Map.fetch(params, "addressee_short_slug"),
-         addressee <- Users.get_user_by_short_slug(addressee_short_slug),
-         false <- Users.user_blocked_me?(current_user.id, addressee.id),
-         false <- Users.exists_reverse_friendship?(current_user.id, addressee.id) do
-      Users.create_friendship(%{requester_id: current_user.id, addressee_id: addressee.id})
-    else
-      nil ->
-        {:error, :not_found}
+  def submit_new_friendship(current_user, %{"addressee_short_slug" => addressee_short_slug}),
+    do: SubmitNewFriendship.call(current_user.id, addressee_short_slug)
 
-      :error ->
-        {:error, 422, "no short slug provided"}
-
-      true ->
-        {:error, 422, "friendship already exists or you were blocked by this user."}
-    end
-  end
+  def submit_new_friendship(_, _), do: {:error, 422, "no short slug provided"}
 
   def change_friendship_status(current_user, %{
         "status" => status,
