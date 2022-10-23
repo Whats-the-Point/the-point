@@ -24,7 +24,7 @@ defmodule ThePoint.Users.Services.SubmitNewFriendship do
       false ->
         :ok
       true ->
-        {:error, "you are blocked by this user"}
+        {:error, "requester blocked by this user"}
     end
   end
 
