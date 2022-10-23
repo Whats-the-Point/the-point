@@ -46,12 +46,44 @@ alias ThePoint.Services.SetShortSlug
 Users.list_active_users()
 |> Enum.each(&SetShortSlug.call/1)
 
-{:ok, _} = Users.create_friendship(%{requester_id: eric_cartman.id, addressee_id: kenny_mccormick.id, status: :accepted})
-{:ok, _} = Users.create_friendship(%{requester_id: eric_cartman.id, addressee_id: stan_marsh.id, status: :accepted})
+{:ok, _} =
+  Users.create_friendship(%{
+    requester_id: eric_cartman.id,
+    addressee_id: kenny_mccormick.id,
+    status: :accepted
+  })
 
-{:ok, _} = Users.create_friendship(%{requester_id: kyle_broflovski.id, addressee_id: stan_marsh.id, status: :accepted})
+{:ok, _} =
+  Users.create_friendship(%{
+    requester_id: eric_cartman.id,
+    addressee_id: stan_marsh.id,
+    status: :accepted
+  })
 
-{:ok, _} = Users.create_friendship(%{requester_id: kyle_broflovski.id, addressee_id: kenny_mccormick.id, status: :requested})
-{:ok, _} = Users.create_friendship(%{requester_id: stan_marsh.id, addressee_id: kenny_mccormick.id, status: :requested})
+{:ok, _} =
+  Users.create_friendship(%{
+    requester_id: kyle_broflovski.id,
+    addressee_id: stan_marsh.id,
+    status: :accepted
+  })
 
-{:ok, _} = Users.create_friendship(%{requester_id: eric_cartman.id, addressee_id: kyle_broflovski.id, status: :blocked})
+{:ok, _} =
+  Users.create_friendship(%{
+    requester_id: kyle_broflovski.id,
+    addressee_id: kenny_mccormick.id,
+    status: :requested
+  })
+
+{:ok, _} =
+  Users.create_friendship(%{
+    requester_id: stan_marsh.id,
+    addressee_id: kenny_mccormick.id,
+    status: :requested
+  })
+
+{:ok, _} =
+  Users.create_friendship(%{
+    requester_id: eric_cartman.id,
+    addressee_id: kyle_broflovski.id,
+    status: :blocked
+  })
