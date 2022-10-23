@@ -37,6 +37,11 @@ defmodule ThePointWeb.Router do
     # protected API endpoints here
     get "/user", UserController, :show
     post "/user/complete-profile", UserController, :complete_profile
+
+    get "/friendship", FriendshipController, :index
+    post "/friendship/create", FriendshipController, :create
+    post "/friendship/change-status", FriendshipController, :change_status
+    delete "/friendship/delete/:friendship_id", FriendshipController, :delete
   end
 
   if Mix.env() == :dev do
