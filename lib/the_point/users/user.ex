@@ -6,6 +6,9 @@ defmodule ThePoint.Users.User do
 
   import Ecto.Changeset
 
+  alias ThePoint.Users.User
+  alias ThePoint.Friendships.Friendship
+
   schema "users" do
     field :name, :string, redact: true
     field :username, :string, redact: true
@@ -13,6 +16,16 @@ defmodule ThePoint.Users.User do
     field :status, Ecto.Enum, values: [:initiated, :active, :deleted], default: :initiated
 
     pow_user_fields()
+
+    many_to_many :friendships,
+                 User,
+                 join_through: Friendship,
+                 join_keys: [requester_id: :id, addressee_id: :id]
+
+    many_to_many :reverse_friendships,
+                 User,
+                 join_through: Friendship,
+                 join_keys: [addressee_id: :id, requester_id: :id]
 
     timestamps()
   end
