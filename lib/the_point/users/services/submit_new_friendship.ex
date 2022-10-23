@@ -23,6 +23,7 @@ defmodule ThePoint.Users.Services.SubmitNewFriendship do
     case Users.user_blocked_me?(requester_id, addressee_id) do
       false ->
         :ok
+
       true ->
         {:error, "requester blocked by this user"}
     end
@@ -32,6 +33,7 @@ defmodule ThePoint.Users.Services.SubmitNewFriendship do
     case Users.exists_reverse_friendship?(requester_id, addressee_id) do
       false ->
         :ok
+
       true ->
         {:error, "friendship already exists"}
     end
