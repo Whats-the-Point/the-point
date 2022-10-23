@@ -9,7 +9,7 @@ defmodule ThePointWeb.API.V1.UserController do
   plug :reload_user
 
   @doc """
-  Get user profile info
+  Get current user profile info
 
   ## Request:
 
