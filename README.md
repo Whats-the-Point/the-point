@@ -72,6 +72,7 @@ To start your Phoenix server:
 
 - Get secrets ready `touch .env.dev`
 - Grab `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` values from Google OATH. You should only have to do this once. And add them to your local `.env.dev`.
+- Run in terminal `source .env.dev`
 - Install dependencies with `mix deps.get`
 - Create and migrate your database with `mix ecto.setup`
 - Start Phoenix endpoint with `mix phx.server`
