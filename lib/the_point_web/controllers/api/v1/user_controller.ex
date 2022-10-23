@@ -4,6 +4,8 @@ defmodule ThePointWeb.API.V1.UserController do
 
   alias ThePoint.Handler.User
 
+  action_fallback(ThePointWeb.API.V1.FallbackController)
+
   plug :reload_user
 
   @doc """
@@ -51,16 +53,8 @@ defmodule ThePointWeb.API.V1.UserController do
 
   """
   def complete_profile(conn, params, current_user) do
-    current_user
-    |> User.complete_profile(params)
-    |> case do
-      {:ok, user} ->
-        render(conn, "success.json", %{user: user})
-
-      {:error, reason} ->
-        conn
-        |> put_status(500)
-        |> json(%{error: %{status: 500, message: reason}})
+    with {:ok, user} <- User.complete_profile(current_user, params) do
+      render(conn, "success.json", %{user: user})
     end
   end
 

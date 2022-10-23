@@ -16,5 +16,5 @@ defmodule ThePoint.Handler.User do
     end
   end
 
-  def complete_profile(_, _), do: {:error, "User with already a complete profile"}
+  def complete_profile(_, _), do: {:error, 422, "user already active"}
 end
