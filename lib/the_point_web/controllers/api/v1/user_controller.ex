@@ -27,7 +27,7 @@ defmodule ThePointWeb.API.V1.UserController do
 
   """
   def show(conn, _, current_user) do
-    render(conn, "success.json", %{user: current_user})
+    render(conn, "show.json", %{user: current_user})
   end
 
   @doc """
@@ -43,18 +43,16 @@ defmodule ThePointWeb.API.V1.UserController do
 
   Response 200:
 
-    {
-      "email": "email@email.com",
-      "name": "John Doe",
-      "short_slug": "MLIN4H",
-      "status": "active",
-      "username": "john_doe"
+  {
+    "data": {
+        "status": "ok"
     }
+  }
 
   """
   def complete_profile(conn, params, current_user) do
-    with {:ok, user} <- User.complete_profile(current_user, params) do
-      render(conn, "success.json", %{user: user})
+    with {:ok, _user} <- User.complete_profile(current_user, params) do
+      render(conn, "success.json")
     end
   end
 
