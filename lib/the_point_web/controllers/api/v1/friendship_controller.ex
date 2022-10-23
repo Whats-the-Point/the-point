@@ -7,24 +7,119 @@ defmodule ThePointWeb.API.V1.FriendshipController do
   action_fallback(ThePointWeb.API.V1.FallbackController)
 
   @doc """
-  Creates friendship for current_user with a short slug of a user
+  Gets the list of current associated friends (already accepted)
 
   ## Request:
 
   `GET /api/v1/friendship`
 
   Response 200:
-
   {
     "data": {
-        "status": "ok"
+        "friends": [
+            {
+                "email": "cartman_bra@gmail.com",
+                "name": "Eric Cartman",
+                "short_slug": "U6DHRQ",
+                "status": "active",
+                "username": "cartman_bra"
+            },
+            {
+                "email": "kenny@gmail.com",
+                "name": "Kenny McCormick",
+                "short_slug": "MHNCDH",
+                "status": "active",
+                "username": "kenny"
+            },
+            {
+                "email": "stan_marsh@gmail.com",
+                "name": "Stan Marsh",
+                "short_slug": "MHPLBD",
+                "status": "active",
+                "username": "stan_marsh"
+            }
+        ]
     }
   }
-
   """
   def index(conn, _, current_user) do
     accepted_friends = User.get_friends(current_user)
     render(conn, "index.json", %{friends: accepted_friends})
+  end
+
+  @doc """
+  Gets the list of current blocked users
+
+  ## Request:
+
+  `GET /api/v1/friendship/blocked`
+
+  Response 200:
+  {
+    "data": {
+        "friends": [
+            {
+                "email": "cartman_bra@gmail.com",
+                "name": "Eric Cartman",
+                "short_slug": "U6DHRQ",
+                "status": "active",
+                "username": "cartman_bra"
+            },
+            {
+                "email": "kenny@gmail.com",
+                "name": "Kenny McCormick",
+                "short_slug": "MHNCDH",
+                "status": "active",
+                "username": "kenny"
+            }
+        ]
+    }
+  }
+  """
+  def blocked_users(conn, _, current_user) do
+    blocked_friends = User.get_blocked_users(current_user)
+    render(conn, "index.json", %{blocked_users: blocked_friends})
+  end
+
+  @doc """
+  Gets the list of pending friendships to be accepted or deleted
+  ## Request:
+
+  `GET /api/v1/friendship/pending`
+
+  Response 200:
+  {
+    "data": {
+        "friendships": [
+            {
+                "id": 10,
+                "requester": {
+                    "email": "cartman_bra@gmail.com",
+                    "name": "Eric Cartman",
+                    "short_slug": "U6DHRQ",
+                    "status": "active",
+                    "username": "cartman_bra"
+                },
+                "status": "requested"
+            },
+            {
+                "id": 11,
+                "requester": {
+                    "email": "kenny@gmail.com",
+                    "name": "Kenny McCormick",
+                    "short_slug": "MHNCDH",
+                    "status": "active",
+                    "username": "kenny"
+                },
+                "status": "requested"
+            }
+        ]
+    }
+  }
+  """
+  def list_pending(conn, _, current_user) do
+    friendships = User.get_current_pending_friendships(current_user)
+    render(conn, "list_pending.json", %{friendships: friendships})
   end
 
   @doc """

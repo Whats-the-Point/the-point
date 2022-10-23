@@ -38,10 +38,14 @@ defmodule ThePointWeb.Router do
     get "/user", UserController, :show
     post "/user/complete-profile", UserController, :complete_profile
 
-    get "/friendship", FriendshipController, :index
-    post "/friendship/create", FriendshipController, :create
-    post "/friendship/change-status", FriendshipController, :change_status
-    delete "/friendship/delete/:friendship_id", FriendshipController, :delete
+    scope("/friendship") do
+      get "/", FriendshipController, :index
+      get "/blocked", FriendshipController, :blocked_users
+      get "/pending", FriendshipController, :list_pending
+      post "/create", FriendshipController, :create
+      post "/change-status", FriendshipController, :change_status
+      delete "/delete/:friendship_id", FriendshipController, :delete
+    end
   end
 
   if Mix.env() == :dev do

@@ -3,11 +3,24 @@ defmodule ThePointWeb.API.V1.FriendshipView do
 
   alias ThePoint.Value.Response
   alias ThePoint.Value.User
+  alias ThePoint.Value.Friendship
 
   def render("index.json", %{friends: friends}) do
     friends
-    |> Enum.map(&User.build(&1))
+    |> User.build()
     |> then(&Response.init(%{friends: &1}))
+  end
+
+  def render("index.json", %{blocked_users: blocked_users}) do
+    blocked_users
+    |> User.build()
+    |> then(&Response.init(%{blocked_users: &1}))
+  end
+
+  def render("list_pending.json", %{friendships: friendships}) do
+    friendships
+    |> Friendship.build()
+    |> then(&Response.init(%{friendships: &1}))
   end
 
   def render("success.json", _) do
