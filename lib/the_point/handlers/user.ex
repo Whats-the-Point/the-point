@@ -17,4 +17,17 @@ defmodule ThePoint.Handler.User do
   end
 
   def complete_profile(_, _), do: {:error, 422, "user already active"}
+
+  def submit_new_friendship(current_user, addressee_short_slug) do
+    with addressee <- Users.get_user_by_short_slug(addressee_short_slug),
+         false <- Users.exists_reverse_friendship?(current_user.id, addressee.id) do
+      Users.create_friendship(%{requester_id: current_user.id, addressee_id: addressee.id})
+    else
+      nil ->
+        {:error, :not_found}
+
+      true ->
+        {:error, 422, "friendship already exists"}
+    end
+  end
 end
