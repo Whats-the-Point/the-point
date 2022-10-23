@@ -53,7 +53,7 @@ defmodule ThePoint.Users do
     |> Repo.update()
   end
 
-  def get_friends(user_id) do
+  def list_friends(user_id) do
     requested_friends =
       from(user in User,
         join: fs in assoc(user, :friendships),
@@ -71,13 +71,24 @@ defmodule ThePoint.Users do
     Repo.all(requested_friends) ++ Repo.all(addressed_friends)
   end
 
-  def get_user_pending_friendships(user_id) do
+  def list_user_pending_friendships(user_id) do
     query =
       from(fs in Friendship,
         join: user in assoc(fs, :requester),
         where: fs.addressee_id == ^user_id and fs.status == :requested,
         where: user.id != ^user_id,
         preload: [:requester]
+      )
+
+    Repo.all(query)
+  end
+
+  def list_user_blocked_friends(user_id) do
+    query =
+      from(user in User,
+        join: fs in assoc(user, :friendships),
+        where: fs.addressee_id == ^user_id and fs.status == :blocked,
+        where: user.id != ^user_id
       )
 
     Repo.all(query)
@@ -95,21 +106,41 @@ defmodule ThePoint.Users do
     Repo.exists?(query)
   end
 
-  def get_user_blocked_friends(user_id) do
+  def get_user_pending_friendship(user_id, friendship_id) do
     query =
-      from(user in User,
-        join: fs in assoc(user, :friendships),
-        where: fs.addressee_id == ^user_id and fs.status == :blocked,
-        where: user.id != ^user_id
+      from(fs in Friendship,
+        where: fs.id == ^friendship_id and fs.addressee_id == ^user_id and fs.status == :requested
       )
 
-    Repo.all(query)
+    Repo.one(query)
+  end
+
+  def get_friendship(id), do: Repo.get(Friendship, id)
+
+  def get_user_friendship(user_id, id) do
+    query =
+      from(fs in Friendship,
+        where: fs.addressee_id == ^user_id or fs.requested_id == ^user_id,
+        where: fs.id == ^id and fs.status in [:requested, :accepted]
+      )
+
+    Repo.one(query)
   end
 
   def create_friendship(attrs \\ %{}) do
     %Friendship{}
     |> Friendship.changeset(attrs)
     |> Repo.insert()
+  end
+
+  def update_friendship(%Friendship{} = friendship, attrs \\ %{}) do
+    friendship
+    |> Friendship.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def delete_friendship(%Friendship{} = friendship) do
+    Repo.delete(friendship)
   end
 
   def exists_reverse_friendship?(requester_id, addressee_id) do

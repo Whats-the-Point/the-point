@@ -32,12 +32,36 @@ defmodule ThePoint.Handler.User do
     end
   end
 
+  def change_friendship_status(current_user, friendship_id, status)
+      when status in [:accepted, :blocked] do
+    case Users.get_user_pending_friendship(current_user.id, friendship_id) do
+      nil ->
+        {:error, :not_found}
+
+      friendship ->
+        Users.update_friendship(friendship, %{status: status})
+    end
+  end
+
+  def change_friendship_status(_, _, status),
+    do: {:error, 422, "#{status} not available for friendship"}
+
+  def remove_friendship(current_user, friendship_id) do
+    case Users.get_user_friendship(current_user, friendship_id) do
+      nil ->
+        {:error, :not_found}
+
+      friendship ->
+        Users.delete_friendship(friendship)
+    end
+  end
+
   def get_friends(current_user),
-    do: Users.get_friends(current_user.id)
+    do: Users.list_friends(current_user.id)
 
   def get_current_pending_friendships(current_user),
-    do: Users.get_user_pending_friendships(current_user.id)
+    do: Users.list_user_pending_friendships(current_user.id)
 
   def get_blocked_users(current_user),
-    do: Users.get_user_blocked_friends(current_user.id)
+    do: Users.list_user_blocked_friends(current_user.id)
 end
