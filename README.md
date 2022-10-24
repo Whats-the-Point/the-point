@@ -7,6 +7,7 @@ You need the following to run tiger:
 - erlang
 - elixir
 - postgres
+- nodejs (linting and CLI tools)
 
 ### Installing natively (via asdf)
 
