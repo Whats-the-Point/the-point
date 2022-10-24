@@ -14,8 +14,7 @@ config :the_point, ThePoint.Repo,
 # debugging and code reloading.
 #
 # The watchers configuration can be used to run external
-# watchers to your application. For example, we use it
-# with esbuild to bundle .js and .css sources.
+# watchers to your application.
 config :the_point, ThePointWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
@@ -23,11 +22,7 @@ config :the_point, ThePointWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "ysVLW0H9siN7JRvppy7/jCIiyOGj1wiucc0GWBe6DW8wlQf7RoijUgMhCTegIdYE",
-  watchers: [
-    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
-  ]
+  secret_key_base: "ysVLW0H9siN7JRvppy7/jCIiyOGj1wiucc0GWBe6DW8wlQf7RoijUgMhCTegIdYE"
 
 # ## SSL Support
 #
