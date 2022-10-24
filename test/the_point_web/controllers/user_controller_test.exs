@@ -94,5 +94,23 @@ defmodule ThePointWeb.API.V1.UserControllerTest do
       assert errors = response["errors"]
       assert errors == %{"username" => ["has already been taken"]}
     end
+
+    test "returns error with not a valid username", %{conn: conn} do
+      user = insert(:incomplete_user)
+
+      params = %{
+        "name" => "John Doe",
+        "username" => "john__doe"
+      }
+
+      response =
+        conn
+        |> assign_current_user(user)
+        |> post(Routes.api_v1_user_path(conn, :complete_profile), params)
+        |> json_response(422)
+
+      assert errors = response["errors"]
+      assert errors == %{"username" => ["not valid. please respect the rules"]}
+    end
   end
 end
