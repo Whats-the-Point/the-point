@@ -10,6 +10,9 @@ config :the_point, ThePoint.Repo,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
+config :the_point,
+  cors_allowed_origin: "http://localhost:3000"
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #

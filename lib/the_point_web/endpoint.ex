@@ -28,5 +28,8 @@ defmodule ThePointWeb.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug Pow.Plug.Session, otp_app: :the_point
+
+  plug CORSPlug, origin: &ThePoint.CORS.allowed_origin/1, headers: ThePoint.CORS.allowed_headers()
+
   plug ThePointWeb.Router
 end

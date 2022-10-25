@@ -47,7 +47,8 @@ defmodule ThePoint.MixProject do
       {:sobelow, "~> 0.10", only: [:dev, :test], runtime: false},
       {:pow, "~> 1.0.27"},
       {:pow_assent, "~> 0.4.13"},
-      {:assent, "~> 0.2.1"}
+      {:assent, "~> 0.2.1"},
+      {:cors_plug, "~> 2.0"}
     ]
   end
 
