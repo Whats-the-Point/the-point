@@ -56,5 +56,6 @@ defmodule ThePoint.Users.User do
       add_error(changeset, :username, "not valid. please respect the rules")
     end
   end
+
   def validate_username(changeset), do: changeset
 end
