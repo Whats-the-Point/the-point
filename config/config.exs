@@ -9,7 +9,7 @@ import Config
 
 config :the_point,
   ecto_repos: [ThePoint.Repo],
-  oauth_redirect_link: System.get_env("REDIRECT_URL") || "http://localhost:4000/api/v1/auth/"
+  client_link: System.get_env("CLIENT_URL") || "http://localhost:3000/"
 
 # Configures the endpoint
 config :the_point, ThePointWeb.Endpoint,

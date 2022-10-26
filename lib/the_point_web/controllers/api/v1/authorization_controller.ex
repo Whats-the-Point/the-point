@@ -19,8 +19,8 @@ defmodule ThePointWeb.API.V1.AuthorizationController do
     end
   end
 
-  defp redirect_uri(conn) do
-    Application.get_env(:the_point, :oauth_redirect_link) <> "#{conn.params["provider"]}/callback"
+  defp redirect_uri(_conn) do
+    Application.get_env(:the_point, :client_link) <> "login/callback"
   end
 
   @spec callback(Conn.t(), map()) :: Conn.t()
