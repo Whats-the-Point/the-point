@@ -3,7 +3,7 @@ defmodule ThePointWeb.Router do
   use Pow.Phoenix.Router
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug(:accepts, ["json", "xlsx", "csv", "xml", "csp-report", "zip"])
     plug ThePointWeb.APIAuthPlug, otp_app: :the_point
   end
 

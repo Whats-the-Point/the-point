@@ -31,7 +31,7 @@ defmodule ThePoint.CORS do
   ]
 
   def allowed_origin(conn) do
-    Map.get(conn.private, :cors_allowed_origin, Application.get_env(:tiger, :cors_allowed_origin))
+    Map.get(conn.private, :cors_allowed_origin, Application.get_env(:the_point, :cors_allowed_origin))
   end
 
   def allowed_headers, do: @allowed_headers

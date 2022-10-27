@@ -19,17 +19,18 @@ defmodule ThePointWeb.Endpoint do
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
 
-  plug Plug.Parsers,
-    parsers: [:urlencoded, :multipart, :json],
+  plug ThePoint.Plugs.Parsers,
+    parsers: [:multipart, :json],
     pass: ["*/*"],
-    json_decoder: Phoenix.json_library()
+    json_decoder: Phoenix.json_library(),
+    length: 20_000_000
 
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
   plug Pow.Plug.Session, otp_app: :the_point
 
-  plug CORSPlug, origin: &ThePoint.CORS.allowed_origin/1, headers: ThePoint.CORS.allowed_headers()
+  plug(CORSPlug, origin: &ThePoint.CORS.allowed_origin/1, headers: ThePoint.CORS.allowed_headers())
 
   plug ThePointWeb.Router
 end
