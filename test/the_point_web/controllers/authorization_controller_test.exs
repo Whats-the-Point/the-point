@@ -86,5 +86,16 @@ defmodule ThePointWeb.API.V1.AuthorizationControllerTest do
       assert json["error"]["message"] == "An unexpected error occurred"
       assert json["error"]["status"] == 500
     end
+
+    test "missing session_params", %{conn: conn} do
+      conn =
+        post(
+          conn,
+          Routes.api_v1_authorization_path(conn, :callback, :test_provider, %{})
+        )
+
+      assert json = json_response(conn, 400)
+      assert json["message"] == "Missing session params"
+    end
   end
 end

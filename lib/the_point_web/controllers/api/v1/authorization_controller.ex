@@ -4,6 +4,8 @@ defmodule ThePointWeb.API.V1.AuthorizationController do
   alias Plug.Conn
   alias PowAssent.Plug
 
+  action_fallback(ThePointWeb.API.V1.FallbackController)
+
   @spec new(Conn.t(), map()) :: Conn.t()
   def new(conn, %{"provider" => provider}) do
     conn
@@ -25,26 +27,30 @@ defmodule ThePointWeb.API.V1.AuthorizationController do
 
   @spec callback(Conn.t(), map()) :: Conn.t()
   def callback(conn, %{"provider" => provider} = params) do
-    session_params = Map.fetch!(params, "session_params")
-    params = Map.drop(params, ["provider", "session_params"])
+    with {:ok, session_params} <- Map.fetch(params, "session_params") do
+      params = Map.drop(params, ["provider", "session_params"])
 
-    conn
-    |> Conn.put_private(:pow_assent_session_params, session_params)
-    |> Plug.callback_upsert(provider, params, redirect_uri(conn))
-    |> case do
-      {:ok, conn} ->
-        json(conn, %{
-          data: %{
-            access_token: conn.private.api_access_token,
-            renewal_token: conn.private.api_renewal_token,
-            user_status: conn.assigns.current_user.status
-          }
-        })
+      conn
+      |> Conn.put_private(:pow_assent_session_params, session_params)
+      |> Plug.callback_upsert(provider, params, redirect_uri(conn))
+      |> case do
+        {:ok, conn} ->
+          json(conn, %{
+            data: %{
+              access_token: conn.private.api_access_token,
+              renewal_token: conn.private.api_renewal_token,
+              user_status: conn.assigns.current_user.status
+            }
+          })
 
-      {:error, conn} ->
-        conn
-        |> put_status(500)
-        |> json(%{error: %{status: 500, message: "An unexpected error occurred"}})
+        {:error, conn} ->
+          conn
+          |> put_status(500)
+          |> json(%{error: %{status: 500, message: "An unexpected error occurred"}})
+      end
+    else
+      :error ->
+        {:error, {:bad_request, "Missing session params"}}
     end
   end
 end
