@@ -13,7 +13,7 @@ defmodule ThePointWeb.API.V1.FriendshipControllerTest do
     test "returns the user successfully", %{conn: conn} do
       user = insert(:user)
 
-      response =
+      _response =
         conn
         |> assign_current_user(user)
         |> get(Routes.api_v1_friendship_path(conn, :index))
