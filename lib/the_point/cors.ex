@@ -25,6 +25,12 @@ defmodule ThePoint.CORS do
     "X-Requested-With",
     "If-Modified-Since",
     "X-CSRF-Token",
+    "x-datadog-origin",
+    "x-datadog-parent-id",
+    "x-datadog-sampled",
+    "x-datadog-sampling-priority",
+    "x-datadog-trace-id",
+    "X-Remote-CDN-Pass",
     "ThePoint-Version",
     "Referer",
     "Referrer-Policy"
@@ -32,6 +38,7 @@ defmodule ThePoint.CORS do
 
   def allowed_origin(conn) do
     Map.get(conn.private, :cors_allowed_origin, Application.get_env(:the_point, :cors_allowed_origin))
+    |> IO.inspect()
   end
 
   def allowed_headers, do: @allowed_headers

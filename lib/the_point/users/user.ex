@@ -49,13 +49,11 @@ defmodule ThePoint.Users.User do
   4. Underscore or dot can't be used multiple times in a row (e.g user__name / user..name).
   5. Number of characters must be between 8 to 20.
   """
-  def validate_username(%{valid?: true} = changeset) do
+  def validate_username(changeset) do
     if String.match?(get_field(changeset, :username), ~r/^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/i) do
       changeset
     else
       add_error(changeset, :username, "not valid. please respect the rules")
     end
   end
-
-  def validate_username(changeset), do: changeset
 end
