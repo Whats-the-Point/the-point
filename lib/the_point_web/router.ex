@@ -17,6 +17,11 @@ defmodule ThePointWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/app", ThePointWeb do
+    get "/", WebappController, :index
+    get "/*path", WebappController, :index
+  end
+
   # Other scopes may use custom stacks.
   scope "/api/v1", ThePointWeb.API.V1, as: :api_v1 do
     pipe_through :api

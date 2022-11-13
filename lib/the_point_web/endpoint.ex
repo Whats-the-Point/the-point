@@ -16,6 +16,12 @@ defmodule ThePointWeb.Endpoint do
     plug Phoenix.CodeReloader
   end
 
+  plug Plug.Static,
+    at: "/",
+    from: :the_point,
+    gzip: false,
+    only: ~w(assets fonts images webapp favicon.ico robots.txt)
+
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
 

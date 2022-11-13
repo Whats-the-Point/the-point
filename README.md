@@ -7,7 +7,7 @@ You need the following to run tiger:
 - erlang
 - elixir
 - postgres
-- nodejs (linting and CLI tools)
+- nodejs (linting, CLI tools and frontend)
 
 ### Installing natively (via asdf)
 
@@ -81,3 +81,38 @@ To start your Phoenix server:
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+
+## Production release
+Generate a secret for our Phoenix app
+- `mix phx.gen.secret`
+
+It will output a very long string. Something like this: `B41pUFgfTJeEUpt+6TwSkbrxlAb9uibgIemaYbm1Oq+XdZ3Q96LcaW9sarbGfMhy`
+Now export this secret as a environment variable: 
+- `export SECRET_KEY_BASE=B41pUFgfTJeEUpt+6TwSkbrxlAb9uibgIemaYbm1Oq+XdZ3Q96LcaW9sarbGfMhy`
+
+Export the database URL. Probably very different in production for you.
+I'm just using the local postgreSQL dev instance for this demo
+- `export DATABASE_URL=ecto://postgres:postgres@localhost/phoenix_react_dev`
+
+Get production dependencies
+- `mix deps.get --only prod`
+
+Compile the project for production
+`MIX_ENV=prod mix compile`
+
+Generate static assets in case you are using Phoenix default assets pipelines For serve-side rendered pages
+- `MIX_ENV=prod mix assets.deploy`
+
+Generate our React frontend using our custom mix task
+- `mix webapp`
+
+Genereate the convenience scripts to assist Phoenix applicaiton deployments like running ecto migrations
+- `mix phx.gen.release`
+
+Now we are ready to generate the Elixir Release
+- `MIX_ENV=prod mix release`
+
+We now have our production release ready. Let’s fire it up with the following command:
+
+- `PHX_HOST=localhost _build/prod/rel/phoenix_react/bin/phoenix_react start`
+
