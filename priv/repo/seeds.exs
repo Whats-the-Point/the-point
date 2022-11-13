@@ -35,7 +35,7 @@ alias ThePoint.Services.SetShortSlug
     status: :active
   })
 
-{:ok, towelie} =
+{:ok, _towelie} =
   Users.create_user(%{
     email: "towelie@gmail.com",
     username: "to_be_defined",
