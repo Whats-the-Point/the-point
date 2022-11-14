@@ -1,8 +1,3 @@
-import { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-
-
 const CompleteProfile: React.FC = () => {
 
     return (
