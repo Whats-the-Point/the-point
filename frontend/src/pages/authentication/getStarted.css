@@ -1,0 +1,35 @@
+.main-section {
+    display: flex;
+    height: 100vh;
+    margin: 0 20%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #1E1E1E;
+}
+
+.content-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 220px;
+    text-align: center;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #F2B429;
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 135%;
+    /* or 24px */
+
+    display: flex;
+    align-items: flex-end;
+    letter-spacing: 0.17px;
+    text-decoration-line: underline;
+    margin-top: 169.15px;
+}
