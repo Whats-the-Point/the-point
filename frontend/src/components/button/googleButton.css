@@ -1,0 +1,40 @@
+.google_button {
+    /* Property 1=Contained */
+
+
+    box-sizing: border-box;
+    cursor: pointer;
+
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0px;
+
+    width: 234px;
+    height: 46.49px;
+
+    background: #E7E7E7;
+    /* Gray 1 */
+
+    border: none;
+    border-radius: 4px;
+
+    color: #323232;
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    /* identical to box height, or 150% */
+
+    text-align: center;
+    letter-spacing: 0.4px;
+    margin-top: 40px;
+}
+
+.google_button:hover {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #E7E7E7;
+}
