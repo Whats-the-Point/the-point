@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
+import CallbackGoogle from "./pages/authentication/CallbackGoogle";
+import CompleteProfile from "./pages/authentication/CompleteProfile";
+import HomePage from "./pages/homePage/HomePage";
 
 const style = { display: "flex", gap: "8px", padding: "8px" };
 
@@ -21,37 +24,14 @@ function App() {
     <BrowserRouter basename="app">
       <nav style={style}>
         <Link to="/">Home</Link>
-        <Link to="/settings">Settings Page</Link>
         <br />
       </nav>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="settings" element={<SettingsPage />} />
+        <Route path="/login/callback" element={<CallbackGoogle />} />
+        <Route path="/register" element={<CompleteProfile />} />
       </Routes>
     </BrowserRouter>
-  );
-}
-
-function SettingsPage() {
-  return (
-    <div>
-      <h1>Settings Page</h1>
-      <ul>
-        <li>My profile</li>
-        <li>Music</li>
-        <li>About</li>
-      </ul>
-    </div>
-  );
-}
-
-function HomePage() {
-  const style = { padding: "8px" };
-  return (
-    <div style={style}>
-      <h1>React TS Home</h1>
-      <p>Welcome to the homepage</p>
-    </div>
   );
 }
 
