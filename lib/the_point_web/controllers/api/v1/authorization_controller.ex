@@ -12,7 +12,7 @@ defmodule ThePointWeb.API.V1.AuthorizationController do
     |> Plug.authorize_url(provider, redirect_uri(conn))
     |> case do
       {:ok, url, conn} ->
-        json(conn, %{data: %{url: url, session_params: conn.private[:pow_assent_session_params]}})
+        json(conn, %{url: url, session_params: conn.private[:pow_assent_session_params]})
 
       {:error, _error, conn} ->
         conn
@@ -22,7 +22,7 @@ defmodule ThePointWeb.API.V1.AuthorizationController do
   end
 
   defp redirect_uri(_conn) do
-    Application.get_env(:the_point, :client_link) <> "login/callback"
+    Application.get_env(:the_point, :client_link) <> "app/login/callback"
   end
 
   @spec callback(Conn.t(), map()) :: Conn.t()
@@ -36,11 +36,9 @@ defmodule ThePointWeb.API.V1.AuthorizationController do
       |> case do
         {:ok, conn} ->
           json(conn, %{
-            data: %{
-              access_token: conn.private.api_access_token,
-              renewal_token: conn.private.api_renewal_token,
-              user_status: conn.assigns.current_user.status
-            }
+            access_token: conn.private.api_access_token,
+            renewal_token: conn.private.api_renewal_token,
+            user_status: conn.assigns.current_user.status
           })
 
         {:error, conn} ->
