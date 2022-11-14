@@ -10,8 +10,9 @@ export default defineConfig({
   // In production, our Phoenix and React apps are served from the same
   // domain and port, which makes this configuration unecessary.
   server: {
+    port: 3000,
     proxy: {
-      "/api/v1": {
+      "/api": {
         target: "http://localhost:4000",
         secure: false,
         ws: true,
