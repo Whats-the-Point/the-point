@@ -30,7 +30,11 @@ defmodule ThePoint.Plugs.Parsers do
   def handle_errors(conn, _error_context), do: conn
 
   defp set_cors_headers(conn) do
-    opts = CORSPlug.init(origin: &ThePoint.CORS.allowed_origin/1, headers: ThePoint.CORS.allowed_headers())
+    opts =
+      CORSPlug.init(
+        origin: &ThePoint.CORS.allowed_origin/1,
+        headers: ThePoint.CORS.allowed_headers()
+      )
 
     CORSPlug.call(conn, opts)
   end
