@@ -2,9 +2,8 @@ import { useEffect } from "react";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import CallbackGoogle from "./pages/authentication/CallbackGoogle";
 import CompleteProfile from "./pages/authentication/CompleteProfile";
+import GetStarted from "./pages/authentication/GetStarted";
 import HomePage from "./pages/homePage/HomePage";
-
-const style = { display: "flex", gap: "8px", padding: "8px" };
 
 function App() {
   /**
@@ -22,12 +21,9 @@ function App() {
 
   return (
     <BrowserRouter basename="app">
-      <nav style={style}>
-        <Link to="/">Home</Link>
-        <br />
-      </nav>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/get-started" element={<GetStarted />} />
         <Route path="/login/callback" element={<CallbackGoogle />} />
         <Route path="/register" element={<CompleteProfile />} />
       </Routes>
