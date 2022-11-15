@@ -1,5 +1,5 @@
 import GoogleButton from '../../components/button/GoogleButton';
-import axios from 'axios';
+import axios from '../../middleware/api/axios';
 import whats_the_point from '../../assets/whats_the_point.svg';
 import './getStarted.css';
 import { useNavigate } from 'react-router-dom';

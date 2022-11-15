@@ -1,10 +1,8 @@
-import './callbackGoogle.css'
-import axios from 'axios';
-import loading_gif from '../../assets/loading.gif'
+import axios from '../../middleware/api/axios';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { loginCurrentUser } from '../../services/sliceUsers';
+import useAuth from "../../middleware/hooks/useAuth";
+import Loading from "../../components/loading/Loading"
 
 interface CallbackPostParams {
     code: string | null;
@@ -14,10 +12,11 @@ interface CallbackPostParams {
 }
 
 const CallbackGoogle: React.FC = () => {
+    const { auth, setAuth } = useAuth();
+
     const [searchParams, setSearchParams] = useSearchParams();
     const [loading, setLoading] = useState<boolean>(true);
     const navigate = useNavigate()
-    const dispatch = useDispatch();
 
     const params: CallbackPostParams = {
         code: searchParams.get('code'),
@@ -28,24 +27,28 @@ const CallbackGoogle: React.FC = () => {
 
     useEffect(() => {
         axios.post('/api/v1/auth/google/callback', params).then(response => {
-            console.log(response);
             setLoading(false);
+            const user = "";
+            const accessToken = response.data.access_token;
+            const renewalToken = response.data.renewal_token;
+            const roles = [response.data.user_status];
+
+            setAuth({ user: user, accessToken: accessToken, renewalToken: renewalToken, roles: roles });
+            localStorage.setItem("renewalToken", renewalToken);
+
             if (response.data.user_status === "initiated") {
-                dispatch(loginCurrentUser({auth_token: response.data.auth_token, renew_token: response.data.renew_token}))
                 navigate("/register")
             } else {
-                navigate("/register") // go to user profile
+                navigate("/profile", { replace: true }); // go to user profile or dashboard
             }
         }).catch(error => {
-            navigate("/")
             console.log(error);
+            navigate("/")
         });
     },)
 
     return (
-        <div className='loading-div'>
-            <img src={loading_gif} alt="Loading..." />
-        </div>
+        <Loading />
     );
 }
 

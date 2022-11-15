@@ -1,18 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { User } from "../@types/auth";
 
-interface User {
-    auth_token: string,
-    renew_token: string
-}
-
-const INITIAL_STATE: User = {auth_token: "", renew_token: "" }
+const INITIAL_STATE: User = {user: "Logged Out", accessToken: "", renewalToken: "", roles: []}
 
 const sliceCurrentUser = createSlice({
     name: "current_user",
     initialState: INITIAL_STATE,
     reducers: {
-        loginCurrentUser(state, {payload}: PayloadAction<User>) {
-            return {auth_token: payload.auth_token, renew_token: payload.renew_token}
+        loginCurrentUser(state, { payload }: PayloadAction<User>) {
+            return { user: "Logged In", accessToken: payload.accessToken, renewalToken: payload.renewalToken, roles: []}
         }
 
     }

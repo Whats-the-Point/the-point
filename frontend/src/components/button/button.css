@@ -34,13 +34,18 @@ button {
     transition-duration: 0.3s;
 }
 
-button:hover {
+button:disabled {
+    background-color: rgba(231, 231, 231, 0.16);
+    color: rgba(231, 231, 231, 0.31);
+}
+
+button:hover:enabled {
     /* Yellow 2 */
     background-color: #f6a415;
 }
 
-button:focus,
-button:focus-visible {
+button:focus:enabled,
+button:focus-visible:enabled {
     background-color: radial-gradient(36.59% 100.8% at 50% 50%, #F2B429 99.54%, rgba(255, 255, 255, 0) 100%), #f6a415;
     border-radius: 4px;
 }
@@ -51,13 +56,13 @@ button:focus-visible {
     color: #F2B429;
 }
 
-button:hover.secondary {
+button:hover.secondary:enabled {
     border: 1px solid #F2B429;
     background-color: rgba(242, 180, 41, 0.26);
 }
 
-button:focus.secondary,
-button:focus-visible.secondary {
+button:focus.secondary:enabled,
+button:focus-visible.secondary:enabled {
     background-color: #F6A415;
     border-radius: 4px;
 }
