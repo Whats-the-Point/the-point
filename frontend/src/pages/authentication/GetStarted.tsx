@@ -21,7 +21,7 @@ const GetStarted: React.FC = () => {
             <div className='content-section'>
                 <img src={whats_the_point} alt="Whats the point" />
                 <h2>Hey, there</h2>
-                <body>Welcome to your personal scoreboard online. Invite your friends and keep track of your scores.</body>
+                <p>Welcome to your personal scoreboard online. Invite your friends and keep track of your scores.</p>
                 <GoogleButton onClick={loginwithGoogle} />
                 <a onClick={goBack}>Go back</a>
             </div>

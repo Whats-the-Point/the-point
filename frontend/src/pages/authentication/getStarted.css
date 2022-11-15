@@ -16,6 +16,14 @@
     text-align: center;
 }
 
+p {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+}
+
 a {
     cursor: pointer;
     text-decoration: underline;
