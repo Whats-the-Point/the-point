@@ -2,7 +2,8 @@ import CallbackGoogle from "./pages/authentication/CallbackGoogle";
 import CompleteProfile from "./pages/authentication/CompleteProfile";
 import GetStarted from "./pages/authentication/GetStarted";
 import HomePage from "./pages/homePage/HomePage";
-import Layout from "./components/Layout";
+import Layout from "./components/layouts/Layout";
+import ActiveLayout from "./components/layouts/ActiveLayout";
 import Missing from "./pages/Missing";
 import Profile from "./pages/profile/Profile";
 import Unauthorized from "./pages/Unauthorized";
@@ -11,6 +12,9 @@ import { useEffect } from "react";
 import PersistLogin from "./components/PersistLogin";
 import RequireAuth from "./components/RequireAuth";
 import RequireNoAuth from "./components/RequireNoAuth";
+import Dashboard from "./pages/dashboard/Dashboard";
+import Friends from "./pages/friends/Friends";
+import Scoreboard from "./pages/scoreboard/Scoreboard";
 
 function App() {
   /**
@@ -46,7 +50,12 @@ function App() {
             </Route>
 
             <Route element={<RequireAuth allowedRoles={["active"]} />}>
-              <Route path="/profile" element={<Profile />} />
+              <Route element={<ActiveLayout />}>
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/friends" element={<Friends />} />
+                <Route path="/scoreboard" element={<Scoreboard />} />
+              </Route>
             </Route>
           </Route>
 
