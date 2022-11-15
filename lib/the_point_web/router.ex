@@ -30,7 +30,7 @@ defmodule ThePointWeb.Router do
     # resources "/session", SessionController, singleton: true, only: [:create, :delete]
 
     resources "/session", SessionController, singleton: true, only: [:delete]
-    post "/session/renew", SessionController, :renew
+    get "/session/renew", SessionController, :renew
 
     get "/auth/:provider/new", AuthorizationController, :new
     post "/auth/:provider/callback", AuthorizationController, :callback
