@@ -1,11 +1,10 @@
 import './completeProfile.css'
 import Button from "../../components/button/Button";
 import useAuth from '../../middleware/hooks/useAuth';
-import { useSelector }from "react-redux";
-import { useCurrentUser } from "../../services/sliceUsers";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import useAxiosPrivate from '../../middleware/hooks/useAxiosPrivate';
+import { User } from '../../@types/auth';
 
 const USERNAME_REGEX = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/;
 interface PostParams {
@@ -27,7 +26,6 @@ const CompleteProfile: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
 
-    const current_user = useSelector(useCurrentUser);
     const navigate = useNavigate()
     const axiosPrivate = useAxiosPrivate();
     const { setAuth } = useAuth();
