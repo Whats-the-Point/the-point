@@ -24,7 +24,7 @@ p {
     line-height: 150%;
 }
 
-a {
+.go-back {
     cursor: pointer;
     text-decoration: underline;
     color: #F2B429;

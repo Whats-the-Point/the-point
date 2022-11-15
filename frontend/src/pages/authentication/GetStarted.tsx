@@ -23,7 +23,7 @@ const GetStarted: React.FC = () => {
                 <h2>Hey, there</h2>
                 <p>Welcome to your personal scoreboard online. Invite your friends and keep track of your scores.</p>
                 <GoogleButton onClick={loginwithGoogle} />
-                <a onClick={goBack}>Go back</a>
+                <a className="go-back" onClick={goBack}>Go back</a>
             </div>
         </div>
     );
