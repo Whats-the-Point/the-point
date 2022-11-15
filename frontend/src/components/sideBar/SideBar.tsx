@@ -56,12 +56,14 @@ const SideBar: React.FC = () => {
     return (
         <>
             <nav className='sideBar'>
-                <img src={logo} alt="Whats the point" />
+                <div className='sideBar-links'>
+                    <img src={logo} alt="Whats the point" />
 
-                <SideBarItem active={dashboardActive} image={dashboard} onClick={handleClickDashboard}>My Dashboard</SideBarItem>
-                <SideBarItem active={friendsActive} image={friends} onClick={handleClickFriends}>My Friends</SideBarItem>
-                <SideBarItem active={scoreboardActive} image={scoreboard} onClick={handleClickScoreboard}>Scoreboard</SideBarItem>
-                <Button>+ Add match</Button>
+                    <SideBarItem active={dashboardActive} image={dashboard} onClick={handleClickDashboard}>My Dashboard</SideBarItem>
+                    <SideBarItem active={friendsActive} image={friends} onClick={handleClickFriends}>My Friends</SideBarItem>
+                    <SideBarItem active={scoreboardActive} image={scoreboard} onClick={handleClickScoreboard}>Scoreboard</SideBarItem>
+                </div>
+                <Button extraClass='sideBar-button'>+ Add match</Button>
             </nav>
         </>
     )
