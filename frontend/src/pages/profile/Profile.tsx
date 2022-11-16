@@ -6,7 +6,8 @@ import useAxiosPrivate from '../../middleware/hooks/useAxiosPrivate';
 
 const Profile: React.FC = () => {
     const { auth, setAuth } = useAuth();
-    const [name, setName] = useState<string>('');
+    const [firstName, setFirstName] = useState<string>('');
+    const [lastName, setLastName] = useState<string>('');
     const [username, setUsername] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [shortSlug, setShortSlug] = useState<string>('');
@@ -16,7 +17,8 @@ const Profile: React.FC = () => {
     useEffect(() => {
         axiosPrivate.get("/api/v1/user").then(response => {
             console.log(response);
-            setName(response.data.name);
+            setFirstName(response.data.first_name);
+            setLastName(response.data.last_name);
             setUsername(response.data.username);
             setEmail(response.data.email);
             setShortSlug(response.data.short_slug);
@@ -37,7 +39,7 @@ const Profile: React.FC = () => {
 
     return (
         <div>
-            <h3>Hello {name}!</h3>
+            <h3>Hello {firstName} {lastName}!</h3>
             <p>Email: {email}</p>
             <p>ID: {shortSlug}</p>
             <p>Username: {username}</p>
