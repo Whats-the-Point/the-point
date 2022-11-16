@@ -1,0 +1,61 @@
+.navBar {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0px 32px;
+    height: 86px;
+    background: rgba(23, 23, 23, 0.12);
+    flex: none;
+    order: 2;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.navBar-link {
+    border-radius: 100%;
+    border: 1px solid rgba(231, 231, 231, 0.6);
+    display: flex;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.navBar-link:hover {
+    background: #333333;
+}
+
+.navBar-link-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.inbox {
+    margin-right: 16px;
+}
+
+.navBar-profile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 8px;
+    width: 72px;
+    height: 40px;
+}
+
+.profile {
+    background: #757575;
+    letter-spacing: 0.1px;
+    color: #363636;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 157%;
+}
+
+.profile:hover {
+    background: none;
+    color: rgba(255, 255, 255, 0.87);
+}
