@@ -74,9 +74,6 @@ button:focus-visible.secondary:enabled {
         font-weight: 700;
         font-size: 26px;
         line-height: 26px;
-        /* identical to box height, or 130% */
-    
-        letter-spacing: 0.46px; 
+        letter-spacing: 0.46px;
     }
-
 }
