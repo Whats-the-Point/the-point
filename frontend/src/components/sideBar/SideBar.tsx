@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
 import "./sideBar.css"
 import logo from "../../assets/logo.svg"
 import dashboard from "../../assets/Dashboard.svg"
@@ -7,6 +6,7 @@ import friends from "../../assets/Friends.svg"
 import scoreboard from "../../assets/Scoreboard.svg"
 import SideBarItem from './SideBarItem'
 import Button from '../button/Button'
+import arrowDown from "../../assets/arrow_down.svg"
 
 interface Props {
     dashboardActive: boolean;
@@ -17,18 +17,34 @@ interface Props {
     handleClickScoreboard: React.MouseEventHandler<HTMLAnchorElement>;
 }
 
-const SideBar: React.FC<Props> = ({ dashboardActive, friendsActive, scoreboardActive, handleClickDashboard, handleClickFriends, handleClickScoreboard }) => {
+const SideBar: React.FC<Props> = ({
+    dashboardActive,
+    friendsActive,
+    scoreboardActive,
+    handleClickDashboard,
+    handleClickFriends,
+    handleClickScoreboard
+}) => {
+    const [open, setOpen] = useState<boolean>(true);
+
+    const handleArrowSideBar = (e: React.MouseEvent<HTMLImageElement> ) => {
+        setOpen(!open);
+    }
+
     return (
         <>
-            <nav className='sideBar'>
+            <nav className={`sideBar ${open ? "open" : "close"}`}>
                 <div className='sideBar-links'>
-                    <img src={logo} alt="Whats the point" />
+                    <div className={`sideBar-top-images ${open ? "open" : "close"}`}>
+                        <img className={`sideBar-logo ${open ? "open" : "close"}`}src={logo} alt="Whats the point" />
+                        <img onClick={handleArrowSideBar} className={`sideBar-top-images-arrow ${open ? "open" : "close"}`} src={arrowDown} alt="open-close arrow" />
+                    </div>
 
-                    <SideBarItem active={dashboardActive} image={dashboard} onClick={handleClickDashboard}>My Dashboard</SideBarItem>
-                    <SideBarItem active={friendsActive} image={friends} onClick={handleClickFriends}>My Friends</SideBarItem>
-                    <SideBarItem active={scoreboardActive} image={scoreboard} onClick={handleClickScoreboard}>Scoreboard</SideBarItem>
+                    <SideBarItem open={open} active={dashboardActive} image={dashboard} onClick={handleClickDashboard}>My Dashboard</SideBarItem>
+                    <SideBarItem open={open} active={friendsActive} image={friends} onClick={handleClickFriends}>My Friends</SideBarItem>
+                    <SideBarItem open={open} active={scoreboardActive} image={scoreboard} onClick={handleClickScoreboard}>Scoreboard</SideBarItem>
                 </div>
-                <Button extraClass='sideBar-button'>+ Add match</Button>
+                <Button extraClass={`sideBar-button ${open ? "open" : "close"}`}>{open ? "+ Add match" : "+"}</Button>
             </nav>
         </>
     )
