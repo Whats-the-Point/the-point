@@ -4,6 +4,7 @@ import Button from '../../components/button/Button';
 import useAuth from "../../middleware/hooks/useAuth";
 import useAxiosPrivate from '../../middleware/hooks/useAxiosPrivate';
 import { motion } from 'framer-motion';
+import "./profile.css"
 
 const Profile: React.FC = () => {
     const { auth, setAuth } = useAuth();
@@ -44,6 +45,7 @@ const Profile: React.FC = () => {
                 duration: 0.6,
             }}
             animate={{ opacity: 1 }}
+            className="profile-div"
         >
             <h3>Hello {firstName} {lastName}!</h3>
             <p>Email: {email}</p>
