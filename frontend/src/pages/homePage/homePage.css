@@ -1,3 +1,15 @@
+.main-home-page {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    justify-content: flex-start;
+    top: 0;
+    left: 0;
+}
+
 .footer {
     position: sticky;
     display: flex;
