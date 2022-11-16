@@ -8,7 +8,8 @@ import { User } from '../../@types/auth';
 
 const USERNAME_REGEX = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/;
 interface PostParams {
-    name: string;
+    first_name: string;
+    last_name: string;
     username: string;
 }
 
@@ -17,11 +18,13 @@ const CompleteProfile: React.FC = () => {
     const errRef = useRef<HTMLParagraphElement>(null);
 
     const [username, setUsername] = useState<string>('');
-    const [name, setName] = useState<string>('');
+    const [firstName, setFirstName] = useState<string>('');
+    const [lastName, setLastName] = useState<string>('');
     const [userFocus, setUserFocus] = useState<boolean>(false);
 
     const [validUsername, setValidUsername] = useState<boolean>(false);
-    const [validName, setValidName] = useState<boolean>(false);
+    const [validFirstName, setValidFirstName] = useState<boolean>(false);
+    const [validLastName, setValidLastName] = useState<boolean>(false);
     const [errMsg, setErrMsg] = useState<string[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
@@ -41,17 +44,27 @@ const CompleteProfile: React.FC = () => {
     }, [username])
 
     useEffect(() => {
-        if (name === "") {
-            setValidName(false)
+        if (firstName === "") {
+            setValidFirstName(false)
         } else {
-            setValidName(true);
+            setValidFirstName(true);
         }
-    }, [name])
+    }, [firstName])
+
+    useEffect(() => {
+        if (lastName === "") {
+            setValidLastName(false)
+        } else {
+            setValidLastName(true);
+        }
+    }, [lastName])
+
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const params: PostParams = {
-            name: name,
+            first_name: firstName,
+            last_name: lastName,
             username: username
         }
         setLoading(true);
@@ -94,16 +107,25 @@ const CompleteProfile: React.FC = () => {
                     onFocus={() => setUserFocus(true)}
                     onBlur={() => setUserFocus(false)}
                 />
-                <label htmlFor="name">Name</label>
+                <label htmlFor="firstName">First Name</label>
                 <input
                     type="text"
                     autoComplete="off"
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => setFirstName(e.target.value)}
                     required
                     onFocus={() => setUserFocus(true)}
                     onBlur={() => setUserFocus(false)}
                 />
-                <Button type="submit" disabled={!validName || !validUsername}>Save</Button>
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                    type="text"
+                    autoComplete="off"
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                    onFocus={() => setUserFocus(true)}
+                    onBlur={() => setUserFocus(false)}
+                />
+                <Button type="submit" disabled={!validFirstName || !validLastName || !validUsername}>Save</Button>
             </form>
         </section>
     );
