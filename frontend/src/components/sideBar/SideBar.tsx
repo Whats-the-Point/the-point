@@ -8,6 +8,7 @@ import SideBarItem from './SideBarItem'
 import Button from '../button/Button'
 import arrowDown from "../../assets/arrow_down.svg"
 import { motion } from 'framer-motion'
+import SideBarButton from '../iconButtons/SideBarButton'
 
 interface Props {
     dashboardActive: boolean;
@@ -79,7 +80,7 @@ const SideBar: React.FC<Props> = ({
                 <SideBarItem open={open} active={friendsActive} image={friends} onClick={handleClickFriends}>My Friends</SideBarItem>
                 <SideBarItem open={open} active={scoreboardActive} image={scoreboard} onClick={handleClickScoreboard}>Scoreboard</SideBarItem>
             </motion.div>
-            <Button animateWidth={buttonWidth} extraClass={`sideBar-button`}>{open ? "+ Add match" : "+"}</Button>
+            <SideBarButton animateWidth={buttonWidth} open={open} />
         </motion.nav>
     )
 }

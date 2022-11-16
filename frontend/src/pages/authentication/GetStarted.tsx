@@ -1,4 +1,4 @@
-import GoogleButton from '../../components/button/GoogleButton';
+import GoogleButton from '../../components/iconButtons/GoogleButton';
 import axios from '../../middleware/api/axios';
 import whats_the_point from '../../assets/whats_the_point.svg';
 import './getStarted.css';

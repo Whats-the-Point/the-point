@@ -1,0 +1,26 @@
+.google_button {
+    align-items: center;
+    background: #E7E7E7;
+    border-radius: 4px;
+    border: none;
+    box-sizing: border-box;
+    color: #323232;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    font-family: 'Manrope';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    height: 46.49px;
+    justify-content: space-evenly;
+    letter-spacing: 0.4px;
+    line-height: 24px;
+    padding: 0px;
+    text-align: center;
+    width: 234px;
+}
+
+.google_button:hover {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #E7E7E7;
+}
