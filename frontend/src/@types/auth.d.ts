@@ -7,5 +7,5 @@ interface User {
 
 export type AuthContextType = {
     auth: User;
-    setAuth: (auth: User) => void;
+    setAuth: (auth: User) => void | any;
 };

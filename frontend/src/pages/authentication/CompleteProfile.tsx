@@ -31,7 +31,7 @@ const CompleteProfile: React.FC = () => {
 
     const navigate = useNavigate()
     const axiosPrivate = useAxiosPrivate();
-    const { setAuth } = useAuth();
+    const { auth, setAuth } = useAuth();
 
     useEffect(() => {
         userRef.current.focus();
@@ -72,17 +72,17 @@ const CompleteProfile: React.FC = () => {
         axiosPrivate.post("/api/v1/user/complete-profile", params).then(response => {
             setLoading(false);
             setSuccess(true);
-            setAuth(prev => {
-                return {
-                    ...prev,
-                    roles: ["active"]
-                }
+            setAuth({
+                user: auth.user,
+                accessToken: auth.accessToken,
+                renewalToken: auth.renewalToken,
+                roles: ["active"]
             });
             /*
                 - navigate to dashboard or user profile? 
                 - then prompt some status of a successfull complete profile
             */
-           navigate("/profile")
+            navigate("/profile")
         }).catch(error => {
             setLoading(false);
             setSuccess(false);
