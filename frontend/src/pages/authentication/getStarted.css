@@ -14,6 +14,19 @@
     align-items: center;
     padding: 0px 220px;
     text-align: center;
+    gap: 80px;
+}
+
+.content-section-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 40px;
+}
+
+.content-section-text-h2 {
+    margin: 0;
 }
 
 p {
@@ -22,6 +35,7 @@ p {
     font-weight: 400;
     font-size: 16px;
     line-height: 150%;
+    margin: 0;
 }
 
 .go-back {
@@ -39,5 +53,5 @@ p {
     align-items: flex-end;
     letter-spacing: 0.17px;
     text-decoration-line: underline;
-    margin-top: 10vh;
+    margin-top: 105px;
 }
