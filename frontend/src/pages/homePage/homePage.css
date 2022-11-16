@@ -66,4 +66,8 @@
         flex-direction: column;
         align-content: center;
     }
+
+    .footer img {
+        height: 31px;
+    }
 }
