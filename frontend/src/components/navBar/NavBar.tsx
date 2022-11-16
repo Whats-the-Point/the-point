@@ -8,7 +8,7 @@ interface Props {
     handleClickProfile: React.MouseEventHandler<HTMLAnchorElement>
 }
 
-const NavBar: React.FC<Props> = ({handleClickProfile}) => {
+const NavBar: React.FC<Props> = ({ handleClickProfile }) => {
     const navigate = useNavigate();
 
     return (

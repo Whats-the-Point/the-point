@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../components/button/Button';
 import useAuth from "../../middleware/hooks/useAuth";
 import useAxiosPrivate from '../../middleware/hooks/useAxiosPrivate';
+import { motion } from 'framer-motion';
 
 const Profile: React.FC = () => {
     const { auth, setAuth } = useAuth();
@@ -16,7 +17,6 @@ const Profile: React.FC = () => {
 
     useEffect(() => {
         axiosPrivate.get("/api/v1/user").then(response => {
-            console.log(response);
             setFirstName(response.data.first_name);
             setLastName(response.data.last_name);
             setUsername(response.data.username);
@@ -38,13 +38,19 @@ const Profile: React.FC = () => {
     }
 
     return (
-        <div>
+        <motion.div
+            initial={{ opacity: 0 }}
+            transition={{
+                duration: 0.6,
+            }}
+            animate={{ opacity: 1 }}
+        >
             <h3>Hello {firstName} {lastName}!</h3>
             <p>Email: {email}</p>
             <p>ID: {shortSlug}</p>
             <p>Username: {username}</p>
             <Button onClick={logout}>Logout</Button>
-        </div>
+        </motion.div>
     )
 }
 

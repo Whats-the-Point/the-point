@@ -57,7 +57,7 @@ const ActiveLayout: React.FC = () => {
     }
 
     return (
-        <main className='main-active'>
+        <div className='main-active'>
             <SideBar
                 dashboardActive={dashboardActive}
                 friendsActive={friendsActive}
@@ -70,7 +70,7 @@ const ActiveLayout: React.FC = () => {
                 <NavBar handleClickProfile={handleClickProfile} />
                 <Outlet />
             </div>
-        </main>
+        </div>
     )
 }
 

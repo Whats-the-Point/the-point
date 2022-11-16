@@ -4,7 +4,7 @@ import useAuth from '../../middleware/hooks/useAuth';
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import useAxiosPrivate from '../../middleware/hooks/useAxiosPrivate';
-import { User } from '../../@types/auth';
+import { motion } from 'framer-motion';
 
 const USERNAME_REGEX = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/;
 interface PostParams {
@@ -93,7 +93,13 @@ const CompleteProfile: React.FC = () => {
     }
 
     return (
-        <section>
+        <motion.div
+            initial={{ opacity: 0 }}
+            transition={{
+                duration: 0.6,
+            }}
+            animate={{ opacity: 1 }}
+        >
             <h3>Welcome to the Point! Please complete your profile.</h3>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>{errMsg}</p>
             <form onSubmit={handleSubmit}>
@@ -127,7 +133,7 @@ const CompleteProfile: React.FC = () => {
                 />
                 <Button type="submit" disabled={!validFirstName || !validLastName || !validUsername}>Save</Button>
             </form>
-        </section>
+        </motion.div>
     );
 }
 

@@ -9,7 +9,6 @@ const PersistLogin = () => {
     const refresh = useRefreshToken();
     const { auth } = useAuth();
     const renewal_token = localStorage.getItem("renewal_token")
-    console.log(renewal_token)
 
     useEffect(() => {
         const verifyRefreshToken = async () => {

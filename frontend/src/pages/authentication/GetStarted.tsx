@@ -3,6 +3,7 @@ import axios from '../../middleware/api/axios';
 import whats_the_point from '../../assets/whats_the_point.svg';
 import './getStarted.css';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const GetStarted: React.FC = () => {
     const navigate = useNavigate()
@@ -17,7 +18,14 @@ const GetStarted: React.FC = () => {
     }
 
     return (
-        <div className='main-section'>
+        <motion.div
+            initial={{ opacity: 0 }}
+            transition={{
+                duration: 0.6,
+            }}
+            animate={{ opacity: 1 }}
+            className='main-section'
+        >
             <div className='content-section'>
                 <img src={whats_the_point} alt="Whats the point" />
                 <div className='content-section-text'>
@@ -27,7 +35,7 @@ const GetStarted: React.FC = () => {
                 </div>
                 <a className="go-back" onClick={goBack}>Go back</a>
             </div>
-        </div>
+        </motion.div>
     );
 }
 
