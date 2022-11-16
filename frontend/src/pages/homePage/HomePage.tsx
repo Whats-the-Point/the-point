@@ -1,6 +1,7 @@
 import Button from "../../components/button/Button";
 import { useNavigate } from 'react-router-dom';
 import whatsThePoint from '../../assets/whats_the_point.svg'
+import homePageVideo from '../../assets/homePage_video.mp4'
 import "./homePage.css"
 
 const HomePage: React.FC = () => {
@@ -13,9 +14,13 @@ const HomePage: React.FC = () => {
                 <img src={whatsThePoint} alt="Whats the point" />
                 <Button onClick={() => navigate("/get-started")}>Get Started</Button>
             </div>
-            <div>
-                <h1 className="title">
-                    Your<span style={style}> &nbsp;Scoreboard&nbsp;</span> online.
+            <div className="homepage-video">
+                <video hidden id="myVideo" autoPlay muted loop>
+                    <source src={homePageVideo} />
+                </video>
+
+                <h1 className="text-over-video">
+                    Your<span style={style}> Scoreboard</span> online.
                 </h1>
             </div>
         </div>
