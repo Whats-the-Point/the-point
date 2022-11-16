@@ -9,7 +9,7 @@ defmodule ThePoint.Users.Handler.User do
   alias ThePoint.Users.Users
 
   def complete_profile(%{status: :initiated} = user, params) do
-    attrs = SanitizeParams.call(params, ["name", "username"])
+    attrs = SanitizeParams.call(params, ["first_name", "last_name", "username"])
 
     with {:ok, user} <- Users.update_user(user, Map.merge(attrs, %{status: :active})) do
       SetShortSlug.call(user)

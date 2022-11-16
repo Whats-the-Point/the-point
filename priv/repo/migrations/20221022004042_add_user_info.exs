@@ -3,7 +3,8 @@ defmodule ThePoint.Repo.Migrations.AddUserInfo do
 
   def change do
     alter table(:users) do
-      add :name, :string, null: true
+      add :first_name, :string, null: true
+      add :last_name, :string, null: true
       add :username, :string, null: true
       add :short_slug, :string
       add :status, :string

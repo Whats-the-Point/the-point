@@ -6,7 +6,8 @@ defmodule ThePointWeb.API.V1.UserView do
   def render("show.json", %{user: user}) do
     %{
       short_slug: user.short_slug,
-      name: user.name,
+      first_name: user.first_name,
+      last_name: user.last_name,
       username: user.username,
       status: user.status,
       email: user.email

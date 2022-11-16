@@ -7,7 +7,8 @@ alias ThePoint.Services.SetShortSlug
   Users.create_user(%{
     email: "cartman_bra@gmail.com",
     username: "cartman_bra",
-    name: "Eric Cartman",
+    first_name: "Eric",
+    last_name: "Cartman",
     status: :active
   })
 
@@ -15,7 +16,8 @@ alias ThePoint.Services.SetShortSlug
   Users.create_user(%{
     email: "kenny@gmail.com",
     username: "kenny",
-    name: "Kenny McCormick",
+    first_name: "Kenny",
+    last_name: "McCormick",
     status: :active
   })
 
@@ -23,7 +25,8 @@ alias ThePoint.Services.SetShortSlug
   Users.create_user(%{
     email: "stan_marsh@gmail.com",
     username: "stan_marsh",
-    name: "Stan Marsh",
+    first_name: "Stan",
+    last_name: "Marsh",
     status: :active
   })
 
@@ -31,7 +34,8 @@ alias ThePoint.Services.SetShortSlug
   Users.create_user(%{
     email: "kyle@gmail.com",
     username: "kyle99",
-    name: "Kyle Broflovski",
+    first_name: "Kyle",
+    last_name: "Broflovski",
     status: :active
   })
 
@@ -39,7 +43,8 @@ alias ThePoint.Services.SetShortSlug
   Users.create_user(%{
     email: "towelie@gmail.com",
     username: "to_be_defined",
-    name: "to_be_defined",
+    first_name: "to_be",
+    last_name: "defined",
     status: :initiated
   })
 

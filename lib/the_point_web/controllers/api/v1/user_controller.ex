@@ -19,7 +19,8 @@ defmodule ThePointWeb.API.V1.UserController do
 
     {
       "email": "email@email.com",
-      "name": "John Doe",
+      "first_name": "John",
+      "last_name": "Doe",
       "short_slug": "MLIN4H",
       "status": "active",
       "username": "john_doe"
@@ -39,7 +40,8 @@ defmodule ThePointWeb.API.V1.UserController do
 
   Params:
     * username
-    * name
+    * first_name
+    * last_name
 
   Response 200:
 

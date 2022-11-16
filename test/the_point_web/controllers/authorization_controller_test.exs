@@ -46,8 +46,8 @@ defmodule ThePointWeb.API.V1.AuthorizationControllerTest do
       conn = get(conn, Routes.api_v1_authorization_path(conn, :new, :test_provider))
 
       assert json = json_response(conn, 200)
-      assert json["data"]["url"] == "https://provider.example.com/oauth/authorize"
-      assert json["data"]["session_params"] == %{"a" => 1}
+      assert json["url"] == "https://provider.example.com/oauth/authorize"
+      assert json["session_params"] == %{"a" => 1}
     end
 
     test "with error", %{conn: conn} do
@@ -71,8 +71,8 @@ defmodule ThePointWeb.API.V1.AuthorizationControllerTest do
         )
 
       assert json = json_response(conn, 200)
-      assert json["data"]["access_token"]
-      assert json["data"]["renewal_token"]
+      assert json["access_token"]
+      assert json["renewal_token"]
     end
 
     test "with invalid params", %{conn: conn} do

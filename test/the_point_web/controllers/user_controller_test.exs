@@ -19,7 +19,8 @@ defmodule ThePointWeb.API.V1.UserControllerTest do
         |> get(Routes.api_v1_user_path(conn, :show))
         |> json_response(:ok)
 
-      assert response["name"]
+      assert response["first_name"]
+      assert response["last_name"]
       assert response["email"]
       assert response["username"]
       assert response["short_slug"]
@@ -38,7 +39,8 @@ defmodule ThePointWeb.API.V1.UserControllerTest do
       user = insert(:incomplete_user)
 
       params = %{
-        "name" => "John Doe",
+        "first_name" => "John",
+        "last_name" => "Doe",
         "username" => "john_doe99"
       }
 
@@ -61,7 +63,12 @@ defmodule ThePointWeb.API.V1.UserControllerTest do
         |> json_response(422)
 
       assert errors = response["errors"]
-      assert errors == %{"name" => ["can't be blank"], "username" => ["can't be blank"]}
+
+      assert errors == %{
+               "first_name" => ["can't be blank"],
+               "last_name" => ["can't be blank"],
+               "username" => ["can't be blank"]
+             }
     end
 
     test "returns errors with user already active", %{conn: conn} do
@@ -81,7 +88,8 @@ defmodule ThePointWeb.API.V1.UserControllerTest do
       user = insert(:incomplete_user)
 
       params = %{
-        "name" => "John Doe",
+        "first_name" => "John",
+        "last_name" => "Doe",
         "username" => "john_doe"
       }
 
@@ -99,7 +107,8 @@ defmodule ThePointWeb.API.V1.UserControllerTest do
       user = insert(:incomplete_user)
 
       params = %{
-        "name" => "John Doe",
+        "first_name" => "John",
+        "last_name" => "Doe",
         "username" => "john__doe"
       }
 

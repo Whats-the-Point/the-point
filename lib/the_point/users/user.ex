@@ -10,7 +10,8 @@ defmodule ThePoint.Users.User do
   alias ThePoint.Friendships.Friendship
 
   schema "users" do
-    field :name, :string, redact: true
+    field :first_name, :string, redact: true
+    field :last_name, :string, redact: true
     field :username, :string, redact: true
     field :short_slug, :string, redact: true
     field :status, Ecto.Enum, values: [:initiated, :active, :deleted], default: :initiated
@@ -27,17 +28,19 @@ defmodule ThePoint.Users.User do
   def changeset(user, map) do
     user
     |> cast(map, [
-      :name,
+      :first_name,
+      :last_name,
       :username,
       :email,
       :short_slug,
       :status,
       :password
     ])
-    |> trim([:name, :username])
-    |> validate_required([:username, :name])
+    |> trim([:first_name, :last_name, :username])
+    |> validate_required([:username, :first_name, :last_name])
     |> unique_constraint(:username)
-    |> validate_length(:name, count: :codepoints, max: 255)
+    |> validate_length(:first_name, count: :codepoints, max: 255)
+    |> validate_length(:last_name, count: :codepoints, max: 255)
     |> validate_length(:username, count: :codepoints, min: 5, max: 20)
     |> validate_username()
   end
@@ -50,10 +53,16 @@ defmodule ThePoint.Users.User do
   5. Number of characters must be between 5 to 20.
   """
   def validate_username(changeset) do
-    if String.match?(get_field(changeset, :username), ~r/^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/i) do
-      changeset
-    else
-      add_error(changeset, :username, "not valid. please respect the rules")
+    case get_field(changeset, :username) do
+      nil ->
+        changeset
+
+      username ->
+        if String.match?(username, ~r/^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/i) do
+          changeset
+        else
+          add_error(changeset, :username, "not valid. please respect the rules")
+        end
     end
   end
 end

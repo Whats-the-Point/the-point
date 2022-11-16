@@ -11,7 +11,8 @@ defmodule ThePoint.Users.Values.User do
     Value.init_with_map()
     |> Value.add(
       short_slug: user.short_slug,
-      name: user.name,
+      first_name: user.first_name,
+      last_name: user.last_name,
       username: user.username,
       status: user.status,
       email: user.email

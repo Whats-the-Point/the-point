@@ -7,7 +7,8 @@ defmodule ThePoint.Factory do
   def user_factory(attrs \\ %{}) do
     user = %User{
       email: sequence(:email, &"email-#{&1}@remote.com"),
-      name: sequence(:name, &"Hero #{&1}"),
+      first_name: sequence(:first_name, &"Hero#{&1}"),
+      last_name: sequence(:last_name, &"Boy#{&1}"),
       username: sequence(:name, &"hero_name#{&1}"),
       short_slug: sequence(:user_short_slug, &String.pad_leading("#{&1}", 6, "0")),
       status: :active
@@ -19,7 +20,8 @@ defmodule ThePoint.Factory do
   def incomplete_user_factory() do
     %User{
       email: sequence(:email, &"email-#{&1}@remote.com"),
-      name: nil,
+      first_name: nil,
+      last_name: nil,
       username: nil,
       short_slug: nil,
       status: :initiated

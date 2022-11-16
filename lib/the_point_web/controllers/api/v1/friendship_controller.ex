@@ -19,21 +19,24 @@ defmodule ThePointWeb.API.V1.FriendshipController do
         "friends": [
             {
                 "email": "cartman_bra@gmail.com",
-                "name": "Eric Cartman",
+                "first_name": "Eric",
+                "last_name": "Cartman",
                 "short_slug": "U6DHRQ",
                 "status": "active",
                 "username": "cartman_bra"
             },
             {
                 "email": "kenny@gmail.com",
-                "name": "Kenny McCormick",
+                "first_name": "Kenny",
+                "last_name": "McCormick",
                 "short_slug": "MHNCDH",
                 "status": "active",
                 "username": "kenny"
             },
             {
                 "email": "stan_marsh@gmail.com",
-                "name": "Stan Marsh",
+                "first_name": "Stan",
+                "last_name": "Marsh",
                 "short_slug": "MHPLBD",
                 "status": "active",
                 "username": "stan_marsh"
@@ -60,14 +63,16 @@ defmodule ThePointWeb.API.V1.FriendshipController do
         "friends": [
             {
                 "email": "cartman_bra@gmail.com",
-                "name": "Eric Cartman",
+                "first_name": "Eric",
+                "last_name": "Cartman",
                 "short_slug": "U6DHRQ",
                 "status": "active",
                 "username": "cartman_bra"
             },
             {
                 "email": "kenny@gmail.com",
-                "name": "Kenny McCormick",
+                "first_name": "Kenny",
+                "last_name": "McCormick",
                 "short_slug": "MHNCDH",
                 "status": "active",
                 "username": "kenny"
@@ -95,7 +100,8 @@ defmodule ThePointWeb.API.V1.FriendshipController do
                 "id": 10,
                 "requester": {
                     "email": "cartman_bra@gmail.com",
-                    "name": "Eric Cartman",
+                    "first_name": "Eric",
+                    "last_name": "Cartman",
                     "short_slug": "U6DHRQ",
                     "status": "active",
                     "username": "cartman_bra"
@@ -106,7 +112,8 @@ defmodule ThePointWeb.API.V1.FriendshipController do
                 "id": 11,
                 "requester": {
                     "email": "kenny@gmail.com",
-                    "name": "Kenny McCormick",
+                    "first_name": "Kenny",
+                    "last_name": "McCormick",
                     "short_slug": "MHNCDH",
                     "status": "active",
                     "username": "kenny"

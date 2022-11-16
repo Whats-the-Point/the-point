@@ -54,10 +54,6 @@ defmodule ThePoint.Composite.Value do
   Initiate a Response based on a pre-existing Struct.
 
   ## Examples
-      iex> country = %Country{name: "Portugal", region: "Europe", slug: "slug", code: "code", benefit_plans: [], benefit_details: [], contracts: [], currency_id: nil, currency: nil, addresses: [], payslips: [], country_subdivisions: [], holidays: []}
-      %Country{name: "Portugal", region: "Europe", slug: "slug", code: "code", benefit_plans: [], benefit_details: [], contracts: [], currency: nil, addresses: [], features: [], payslips: [], country_subdivisions: [], holidays: []}
-      iex> init(country)
-      %{benefit_plans: [], benefit_details: [], contracts: [], id: nil, inserted_at: nil, name: "Portugal", region: "Europe", slug: "slug", code: "code", updated_at: nil, currency: nil, currency_id: nil, addresses: [], features: [], payslips: [], country_subdivisions: [], holidays: []}
 
       iex> init(%{a: 1})
       %{a: 1}
