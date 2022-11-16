@@ -18,6 +18,7 @@ const PersistLogin = () => {
             }
             catch (err) {
                 console.error(err);
+                localStorage.clear();
             }
             finally {
                 setIsLoading(false);
