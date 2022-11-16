@@ -8,51 +8,16 @@ import scoreboard from "../../assets/Scoreboard.svg"
 import SideBarItem from './SideBarItem'
 import Button from '../button/Button'
 
-const SideBar: React.FC = () => {
-    const [dashboardActive, setDashboardActive] = useState<boolean>(false)
-    const [friendsActive, setFriendsActive] = useState<boolean>(false)
-    const [scoreboardActive, setScoreboardActive] = useState<boolean>(false)
-    const navigate = useNavigate();
-    const location = useLocation()
+interface Props {
+    dashboardActive: boolean;
+    friendsActive: boolean;
+    scoreboardActive: boolean;
+    handleClickDashboard: React.MouseEventHandler<HTMLAnchorElement>;
+    handleClickFriends: React.MouseEventHandler<HTMLAnchorElement>;
+    handleClickScoreboard: React.MouseEventHandler<HTMLAnchorElement>;
+}
 
-    useEffect(() => {
-        if (location.pathname === "/dashboard") {
-            setDashboardActive(true)
-            setFriendsActive(false)
-            setScoreboardActive(false)
-        } else if (location.pathname === "/friends") {
-            setDashboardActive(false)
-            setFriendsActive(true)
-            setScoreboardActive(false)
-        } else if (location.pathname === "/scoreboard") {
-            setDashboardActive(false)
-            setFriendsActive(false)
-            setScoreboardActive(true)
-        }
-    }, []);
-
-    const handleClickDashboard = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        setDashboardActive(true)
-        setFriendsActive(false)
-        setScoreboardActive(false)
-        navigate("/dashboard");
-    }
-
-    const handleClickFriends = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        setDashboardActive(false)
-        setFriendsActive(true)
-        setScoreboardActive(false)
-        navigate("/friends");
-    }
-
-    const handleClickScoreboard = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        setDashboardActive(false)
-        setFriendsActive(false)
-        setScoreboardActive(true)
-        navigate("/scoreboard");
-    }
-
-
+const SideBar: React.FC<Props> = ({ dashboardActive, friendsActive, scoreboardActive, handleClickDashboard, handleClickFriends, handleClickScoreboard }) => {
     return (
         <>
             <nav className='sideBar'>
