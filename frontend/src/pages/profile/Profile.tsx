@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../components/button/Button';
 import { motion } from 'framer-motion';
 import "./profile.css"
-import { useLogoutMutation } from '../../services/slices/authApiSlice'
+import { useLogoutMutation } from '../../middleware/context/authApiSlice'
 import { logOut, selectCurrentUser } from '../../services/slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 

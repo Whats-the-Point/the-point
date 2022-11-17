@@ -3,7 +3,7 @@ import Button from "../../components/button/Button";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useCompleteUserMutation } from '../../services/slices/userSlice';
+import { useCompleteUserMutation } from '../../middleware/context/userSlice';
 import { useDispatch } from 'react-redux'
 import { setRole } from '../../services/slices/authSlice'
 

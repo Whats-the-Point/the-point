@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
 import NavBar from '../navBar/NavBar'
 import SideBar from '../sideBar/SideBar'
-import { useGetUserMutation } from '../../services/slices/userSlice';
+import { useGetUserMutation } from '../../middleware/context/userSlice';
 import { setUser } from '../../services/slices/authSlice';
 import { useDispatch } from 'react-redux'
 import "./activeLayout.css"

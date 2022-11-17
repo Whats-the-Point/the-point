@@ -1,4 +1,4 @@
-import { useGetFriendsQuery } from "../../services/slices/friendsSlice";
+import { useGetFriendsQuery } from "../../middleware/context/friendsSlice";
 import { UserInfo } from '../../@types/user'
 
 const FriendsList = () => {
