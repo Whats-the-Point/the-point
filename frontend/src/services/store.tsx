@@ -11,3 +11,7 @@ export const store = configureStore({
         getDefaultMiddleware().concat(apiSlice.middleware),
     devTools: true // change to false in production
 })
+
+export type RootState = ReturnType<typeof store.getState>
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch
