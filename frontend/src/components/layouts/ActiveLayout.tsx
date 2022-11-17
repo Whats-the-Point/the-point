@@ -75,6 +75,23 @@ const ActiveLayout: React.FC = () => {
         navigate("/profile");
     }
 
+    const isLoadingOrUnitialized = () => {
+        if (isLoading || isUninitialized) {
+            return <Loading />
+        } else {
+            if (isSuccess) {
+                return (
+                    <>
+                        <NavBar handleClickProfile={handleClickProfile} />
+                        <Outlet />
+                    </>
+                )
+            } else {
+                return <Unauthorized />
+            }
+        }
+    }
+
     return (
         <div className='main-active'>
             <SideBar
@@ -86,10 +103,7 @@ const ActiveLayout: React.FC = () => {
                 handleClickFriends={handleClickFriends}
             />
             <div className='second-active'>
-                <NavBar handleClickProfile={handleClickProfile} />
-                {isLoading || isUninitialized ? <Loading /> :
-                    isSuccess ?
-                        <Outlet /> : <Unauthorized />}
+                {isLoadingOrUnitialized()}
             </div>
         </div>
     )
