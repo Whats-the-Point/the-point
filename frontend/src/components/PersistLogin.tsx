@@ -1,40 +1,37 @@
 import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
-import useRefreshToken from "../middleware/hooks/useRefreshToken";
-import useAuth from "../middleware/hooks/useAuth";
 import Loading from "./loading/Loading";
+import { useSelector, useDispatch } from "react-redux";
+import { selectCurrentToken, setCredentials } from "../services/slices/authSlice";
+import { useRenewMutation } from "../middleware/context/authApiSlice";
 
 const PersistLogin = () => {
-    const [isLoading, setIsLoading] = useState(true);
-    const refresh = useRefreshToken();
-    const { auth } = useAuth();
-    const renewal_token = localStorage.getItem("renewal_token")
+    const [isLoadingTwo, setIsLoadingTwo] = useState(true);
+    const token = useSelector(selectCurrentToken);
+    const [renew, { isLoading }] = useRenewMutation()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const verifyRefreshToken = async () => {
             try {
-                await refresh();
+                const response = await renew(null).unwrap()
+                dispatch(setCredentials({ ...response }))
+                return response.access_token;
             }
             catch (err) {
                 console.error(err);
-                localStorage.clear();
             }
             finally {
-                setIsLoading(false);
+                setIsLoadingTwo(false);
             }
         }
 
-        !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
+        !token ? verifyRefreshToken() : setIsLoadingTwo(false);
     }, [])
-
-    useEffect(() => {
-        console.log(`isLoading: ${isLoading}`)
-        console.log(`aT: ${JSON.stringify(auth?.accessToken)}`)
-    }, [isLoading])
 
     return (
         <>
-            {isLoading
+            {isLoading || isLoadingTwo
                 ? <Loading />
                 : <Outlet />
             }

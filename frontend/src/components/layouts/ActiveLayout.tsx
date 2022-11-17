@@ -20,14 +20,13 @@ const ActiveLayout: React.FC = () => {
     const [getUser, {
         isLoading,
         isSuccess,
+        isUninitialized,
         isError,
         error
     }] = useGetUserMutation()
 
-
     useEffect(() => {
         getUser(null).unwrap().then(user => {
-            console.log(user)
             dispatch(setUser(user))
         }).catch((err) =>
             console.log(err)
@@ -88,7 +87,7 @@ const ActiveLayout: React.FC = () => {
             />
             <div className='second-active'>
                 <NavBar handleClickProfile={handleClickProfile} />
-                {isLoading ? <Loading /> :
+                {isLoading || isUninitialized ? <Loading /> :
                     isSuccess ?
                         <Outlet /> : <Unauthorized />}
             </div>

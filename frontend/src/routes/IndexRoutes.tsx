@@ -33,7 +33,7 @@ const IndexRoutes: React.FC = () => {
                 </Route>
 
                 {/* Protected Routes */}
-                {/*<Route element={<PersistLogin />}> */}
+                <Route element={<PersistLogin />}> */
                     <Route element={<RequireAuth allowedRoles={["initiated"]} />}>
                         <Route path="/register" element={<CompleteProfile />} />
                     </Route>
@@ -46,7 +46,7 @@ const IndexRoutes: React.FC = () => {
                             <Route path="/scoreboard" element={<Scoreboard />} />
                         </Route>
                     </Route>
-                {/*/Route>*}
+                </Route>
 
                 {/* catch all */}
                 <Route path="*" element={<Missing />} />

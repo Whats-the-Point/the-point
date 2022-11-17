@@ -94,7 +94,7 @@ defmodule ThePointWeb.APIAuthPlug do
   def renew(conn, config) do
     store_config = store_config(config)
 
-    with {:ok, signed_token} <- fetch_access_token(conn),
+    with {:ok, signed_token} <- fetch_renewal_token(conn),
          {:ok, token} <- verify_token(conn, signed_token, config),
          {user, metadata} <- PersistentSessionCache.get(store_config, token) do
       {conn, user} = create(conn, user, config)
@@ -123,6 +123,16 @@ defmodule ThePointWeb.APIAuthPlug do
     case Conn.get_req_header(conn, "authorization") do
       [token | _rest] -> {:ok, token}
       _any -> :error
+    end
+  end
+
+  defp fetch_renewal_token(conn) do
+    Conn.fetch_cookies(conn)
+    |> Map.from_struct()
+    |> get_in([:cookies, "renewal_token"])
+    |> case do
+      nil -> :error
+      token -> {:ok, token}
     end
   end
 
