@@ -31,7 +31,7 @@ const Profile: React.FC = () => {
 
         try {
             logout(null).unwrap()
-            dispatch(logOut())
+            dispatch(logOut(null))
             navigate("/");
         } catch (err) {
             console.log(err)
