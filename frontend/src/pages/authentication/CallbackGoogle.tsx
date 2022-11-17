@@ -1,8 +1,10 @@
-import axios from '../../middleware/api/axios';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import useAuth from "../../middleware/hooks/useAuth";
 import Loading from "../../components/loading/Loading"
+
+import { useDispatch } from 'react-redux'
+import { setCredentials } from '../../services/slices/authSlice'
+import { useLoginMutation } from '../../services/slices/authApiSlice'
 
 interface CallbackPostParams {
     code: string | null;
@@ -12,10 +14,11 @@ interface CallbackPostParams {
 }
 
 const CallbackGoogle: React.FC = () => {
-    const { auth, setAuth } = useAuth();
-
     const [searchParams, setSearchParams] = useSearchParams();
-    const [loading, setLoading] = useState<boolean>(true);
+    const [login] = useLoginMutation()
+
+
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const params: CallbackPostParams = {
@@ -26,30 +29,22 @@ const CallbackGoogle: React.FC = () => {
     }
 
     useEffect(() => {
-        axios.post('/api/v1/auth/google/callback', params).then(response => {
-            setLoading(false);
-            const user = "";
-            const accessToken = response.data.access_token;
-            const renewalToken = response.data.renewal_token;
-            const roles = [response.data.user_status];
-
-            setAuth({ user: user, accessToken: accessToken, renewalToken: renewalToken, roles: roles });
-            localStorage.setItem("renewalToken", renewalToken);
-
-            if (response.data.user_status === "initiated") {
-                navigate("/register")
+        login(params).unwrap().then(response => {
+            console.log(response)
+            dispatch(setCredentials({ ...response }))
+            if (response.user_status == "active"){
+                navigate('/profile')
             } else {
-                navigate("/profile", { replace: true }); // go to user profile or dashboard
+                navigate('/register')
             }
-        }).catch(error => {
-            console.log(error);
-            navigate("/")
-        });
-    },)
+        }).catch((err) =>
+            console.log(err)
+        )
+    }, [])
 
-    return (
-        <Loading />
-    );
+return (
+    <Loading />
+);
 }
 
 export default CallbackGoogle;
