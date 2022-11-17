@@ -4,7 +4,7 @@ import Loading from "../../components/loading/Loading"
 
 import { useDispatch } from 'react-redux'
 import { setCredentials } from '../../services/slices/authSlice'
-import { useLoginMutation } from '../../services/slices/authApiSlice'
+import { useCallbackMutation } from '../../middleware/context/authApiSlice'
 
 interface CallbackPostParams {
     code: string | null;
@@ -15,7 +15,7 @@ interface CallbackPostParams {
 
 const CallbackGoogle: React.FC = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [login] = useLoginMutation()
+    const [callback] = useCallbackMutation()
 
 
     const dispatch = useDispatch()
@@ -29,7 +29,7 @@ const CallbackGoogle: React.FC = () => {
     }
 
     useEffect(() => {
-        login(params).unwrap().then(response => {
+        callback(params).unwrap().then(response => {
             console.log(response)
             dispatch(setCredentials({ ...response }))
             if (response.user_status == "active"){

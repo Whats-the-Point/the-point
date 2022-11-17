@@ -1,15 +1,19 @@
 import GoogleButton from '../../components/iconButtons/GoogleButton';
-import axios from '../../middleware/api/axios';
 import whats_the_point from '../../assets/whats_the_point.svg';
 import './getStarted.css';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useLoginMutation } from '../../middleware/context/authApiSlice';
+
 
 const GetStarted: React.FC = () => {
     const navigate = useNavigate()
+    const [login] = useLoginMutation()
+
+
     const loginwithGoogle = (event: React.MouseEvent<HTMLDivElement>) => {
-        axios.get("/api/v1/auth/google/new").then((response) => {
-            window.location.replace(response.data.url);
+        login(null).unwrap().then((response) => {
+            window.location.replace(response.url);
         });
     }
 
