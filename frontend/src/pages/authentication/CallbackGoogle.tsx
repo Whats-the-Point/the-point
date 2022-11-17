@@ -30,7 +30,6 @@ const CallbackGoogle: React.FC = () => {
 
     useEffect(() => {
         callback(params).unwrap().then(response => {
-            console.log(response)
             dispatch(setCredentials({ ...response }))
             if (response.user_status == "active"){
                 navigate('/profile')
