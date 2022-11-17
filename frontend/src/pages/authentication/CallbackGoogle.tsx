@@ -31,13 +31,14 @@ const CallbackGoogle: React.FC = () => {
     useEffect(() => {
         callback(params).unwrap().then(response => {
             dispatch(setCredentials({ ...response }))
-            if (response.user_status == "active"){
-                navigate('/profile')
-            } else {
+            if (response.user_status == "initiated"){
                 navigate('/register')
+            } else {
+                navigate('/profile')
             }
         }).catch((err) =>
             console.log(err)
+            navigate("/")
         )
     }, [])
 
