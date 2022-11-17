@@ -31,20 +31,20 @@ const CallbackGoogle: React.FC = () => {
     useEffect(() => {
         callback(params).unwrap().then(response => {
             dispatch(setCredentials({ ...response }))
-            if (response.user_status == "initiated"){
+            if (response.user_status == "initiated") {
                 navigate('/register')
             } else {
                 navigate('/profile')
             }
-        }).catch((err) =>
+        }).catch((err) => {
             console.log(err)
-            navigate("/")
-        )
+            navigate('/')
+        })
     }, [])
 
-return (
-    <Loading />
-);
+    return (
+        <Loading />
+    );
 }
 
 export default CallbackGoogle;
