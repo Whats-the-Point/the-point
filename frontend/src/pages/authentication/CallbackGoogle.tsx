@@ -32,10 +32,10 @@ const CallbackGoogle: React.FC = () => {
         login(params).unwrap().then(response => {
             console.log(response)
             dispatch(setCredentials({ ...response }))
-            if (response.user_status == "active"){
-                navigate('/profile')
-            } else {
+            if (response.user_status == "initiated"){
                 navigate('/register')
+            } else {
+                navigate('/profile')
             }
         }).catch((err) =>
             console.log(err)
