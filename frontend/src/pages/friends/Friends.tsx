@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { UserInfo } from '../../@types/user'
 import { useGetFriendsMutation } from '../../middleware/context/friendsSlice'
+import './Friends.css'
+import AddFriend from './AddFriend'
+
 
 const Friends: React.FC = () => {
   const [friends, setFriends] = useState<UserInfo[]>([])
@@ -52,6 +55,7 @@ const Friends: React.FC = () => {
       animate={{ opacity: 1 }}
     >
       {friendsList()}
+      <AddFriend/>
     </motion.div>
   )
 }
