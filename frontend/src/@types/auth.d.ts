@@ -1,8 +1,16 @@
+export interface UserInfo {
+    email?: string;
+    first_name?: string;
+    last_name?: string;
+    short_slug?: string;
+    status?: string;
+    username?: string;
+  }
+  
 interface User {
-    user?: string;
-    roles?: string[];
+    user?: UserInfo;
+    role?: string;
     accessToken?: string,
-    renewalToken?: string
 }
 
 export type AuthContextType = {
