@@ -24,3 +24,11 @@
 .google_button:hover {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #E7E7E7;
 }
+
+@media screen and (max-width: 599px) {
+    .google_button {
+        width: 337px;
+        justify-content: center;
+        gap: 8px
+    }
+}

@@ -8,6 +8,7 @@
     background: #1E1E1E;
 }
 
+
 .content-section {
     display: flex;
     flex-direction: column;
@@ -27,6 +28,7 @@
 
 .content-section-text-h2 {
     margin: 0;
+    white-space: nowrap;
 }
 
 p {
@@ -54,4 +56,39 @@ p {
     letter-spacing: 0.17px;
     text-decoration-line: underline;
     margin-top: 105px;
+}
+
+@media screen and (max-width: 899px) {
+    .main-section {
+        position: fixed;
+        margin: 0;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .main-section {
+        position: fixed;
+        margin: 0;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    p {
+        font-family: 'Manrope';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 135%;
+        letter-spacing: 0.17px;
+    }
+    
+    .go-back {
+        margin-top: 0;
+    }
 }
