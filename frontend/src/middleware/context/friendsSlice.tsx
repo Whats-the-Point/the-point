@@ -2,13 +2,16 @@ import { apiSlice } from "../api/apiSlice"
 
 export const friendsApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
-        getFriends: builder.query({
-            query: () => '/api/v1/friendship'
-        })
+        getFriends: builder.mutation({
+            query: () => ({
+                url: '/api/v1/friendship',
+                method: 'GET'
+            })
+        }),
 
     })
 })
 
 export const {
-    useGetFriendsQuery
+    useGetFriendsMutation
 } = friendsApiSlice 
