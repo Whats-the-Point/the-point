@@ -1,14 +1,16 @@
+import './getStarted.css';
 import GoogleButton from '../../components/iconButtons/GoogleButton';
 import whats_the_point from '../../assets/whats_the_point.svg';
-import './getStarted.css';
-import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useLoginMutation } from '../../middleware/context/authApiSlice';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 
 const GetStarted: React.FC = () => {
     const navigate = useNavigate()
     const [login] = useLoginMutation()
+    const [persist, setPersist] = useState<boolean>(false)
 
 
     const loginwithGoogle = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -20,6 +22,14 @@ const GetStarted: React.FC = () => {
     const goBack = (e: React.MouseEvent<HTMLAnchorElement>) => {
         navigate("/");
     }
+
+    const togglePersist = () => {
+        setPersist(prev => !prev);
+    }
+
+    useEffect(() => {
+        localStorage.setItem("persist", persist.toString());
+    }, [persist])
 
     return (
         <motion.div
@@ -36,6 +46,15 @@ const GetStarted: React.FC = () => {
                     <h2 className='content-section-text-h2'>Hey, there</h2>
                     <p>Welcome to your personal scoreboard online. Invite your friends and keep track of your scores.</p>
                     <GoogleButton onClick={loginwithGoogle} />
+                    <div className="persistCheck">
+                        <input
+                            type="checkbox"
+                            id="persist"
+                            onChange={togglePersist}
+                            checked={persist}
+                        />
+                        <label htmlFor="persist">Trust This Device</label>
+                    </div>
                 </div>
                 <a className="go-back" onClick={goBack}>Go back</a>
             </div>

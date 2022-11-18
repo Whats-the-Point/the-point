@@ -7,9 +7,10 @@ import { useRenewMutation } from "../middleware/context/authApiSlice";
 
 const PersistLogin = () => {
     const [isLoadingTwo, setIsLoadingTwo] = useState(true);
-    const token = useSelector(selectCurrentToken);
     const [renew, { isLoading }] = useRenewMutation()
     const dispatch = useDispatch()
+    const token: string = useSelector(selectCurrentToken);
+    const persist: boolean = JSON.parse(localStorage.getItem("persist")) || false
 
     useEffect(() => {
         const verifyRefreshToken = async () => {
@@ -26,7 +27,7 @@ const PersistLogin = () => {
             }
         }
 
-        !token ? verifyRefreshToken() : setIsLoadingTwo(false);
+        !token && persist ? verifyRefreshToken() : setIsLoadingTwo(false);
     }, [])
 
     return (
