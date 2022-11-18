@@ -2,20 +2,19 @@ import './getStarted.css';
 import GoogleButton from '../../components/iconButtons/GoogleButton';
 import whats_the_point from '../../assets/whats_the_point.svg';
 import { motion } from 'framer-motion';
-import { useLoginMutation } from '../../middleware/context/authApiSlice';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import axios from '../../middleware/api/axios';
 
 
 const GetStarted: React.FC = () => {
     const navigate = useNavigate()
-    const [login] = useLoginMutation()
     const [persist, setPersist] = useState<boolean>(false)
 
 
     const loginwithGoogle = (event: React.MouseEvent<HTMLDivElement>) => {
-        login(null).unwrap().then((response) => {
-            window.location.replace(response.url);
+        axios.get("/api/v1/auth/google/new").then((response) => {
+            window.location.replace(response.data.url);
         });
     }
 
