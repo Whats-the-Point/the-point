@@ -36,9 +36,10 @@ defmodule ThePointWeb.API.V1.AuthorizationController do
         |> Plug.callback_upsert(provider, params, redirect_uri(conn))
         |> case do
           {:ok, conn} ->
-            json(conn, %{
+            conn
+            |> put_resp_cookie("renewal_token", conn.private.api_renewal_token)
+            |> json(%{
               access_token: conn.private.api_access_token,
-              renewal_token: conn.private.api_renewal_token,
               user_status: conn.assigns.current_user.status
             })
 

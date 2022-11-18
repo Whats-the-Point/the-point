@@ -33,7 +33,7 @@ const IndexRoutes: React.FC = () => {
                 </Route>
 
                 {/* Protected Routes */}
-                <Route element={<PersistLogin />}>
+                <Route element={<PersistLogin />}> */
                     <Route element={<RequireAuth allowedRoles={["initiated"]} />}>
                         <Route path="/register" element={<CompleteProfile />} />
                     </Route>

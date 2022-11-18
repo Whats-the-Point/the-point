@@ -1,8 +1,10 @@
-import axios from '../../middleware/api/axios';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import useAuth from "../../middleware/hooks/useAuth";
 import Loading from "../../components/loading/Loading"
+
+import { useDispatch } from 'react-redux'
+import { setCredentials } from '../../services/slices/authSlice'
+import { useCallbackMutation } from '../../middleware/context/authApiSlice'
 
 interface CallbackPostParams {
     code: string | null;
@@ -12,10 +14,11 @@ interface CallbackPostParams {
 }
 
 const CallbackGoogle: React.FC = () => {
-    const { auth, setAuth } = useAuth();
-
     const [searchParams, setSearchParams] = useSearchParams();
-    const [loading, setLoading] = useState<boolean>(true);
+    const [callback] = useCallbackMutation()
+
+
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const params: CallbackPostParams = {
@@ -26,26 +29,18 @@ const CallbackGoogle: React.FC = () => {
     }
 
     useEffect(() => {
-        axios.post('/api/v1/auth/google/callback', params).then(response => {
-            setLoading(false);
-            const user = "";
-            const accessToken = response.data.access_token;
-            const renewalToken = response.data.renewal_token;
-            const roles = [response.data.user_status];
-
-            setAuth({ user: user, accessToken: accessToken, renewalToken: renewalToken, roles: roles });
-            localStorage.setItem("renewalToken", renewalToken);
-
-            if (response.data.user_status === "initiated") {
-                navigate("/register")
+        callback(params).unwrap().then(response => {
+            dispatch(setCredentials({ ...response }))
+            if (response.user_status == "initiated") {
+                navigate('/register')
             } else {
-                navigate("/profile", { replace: true }); // go to user profile or dashboard
+                navigate('/profile')
             }
-        }).catch(error => {
-            console.log(error);
-            navigate("/")
-        });
-    },)
+        }).catch((err) => {
+            console.log(err)
+            navigate('/')
+        })
+    }, [])
 
     return (
         <Loading />

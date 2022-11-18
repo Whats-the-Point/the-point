@@ -1,16 +1,14 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import useAuth from "../middleware/hooks/useAuth";
+import { useSelector } from "react-redux";
+import { selectCurrentToken } from "../services/slices/authSlice";
 
 const RequireNoAuth: React.FC = () => {
-
-    const { auth } = useAuth();
+    const token = useSelector(selectCurrentToken)
     const location = useLocation();
-    const renewal_token = localStorage.getItem("renewalToken")
-    console.log(renewal_token)
 
     return (
-        renewal_token && renewal_token !== ""
-            ? <Navigate to="/profile" state={{ from: location }} replace />
+        token ?
+            <Navigate to="/profile" state={{ from: location }} replace />
             : <Outlet />
     );
 }

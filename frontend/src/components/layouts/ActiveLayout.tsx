@@ -3,7 +3,12 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
 import NavBar from '../navBar/NavBar'
 import SideBar from '../sideBar/SideBar'
+import { useGetUserMutation } from '../../middleware/context/userSlice';
+import { setUser } from '../../services/slices/authSlice';
+import { useDispatch } from 'react-redux'
 import "./activeLayout.css"
+import Loading from '../loading/Loading'
+import Unauthorized from '../../pages/Unauthorized'
 
 const ActiveLayout: React.FC = () => {
     const [dashboardActive, setDashboardActive] = useState<boolean>(false)
@@ -11,8 +16,22 @@ const ActiveLayout: React.FC = () => {
     const [scoreboardActive, setScoreboardActive] = useState<boolean>(false)
     const navigate = useNavigate();
     const location = useLocation()
+    const dispatch = useDispatch()
+    const [getUser, {
+        isLoading,
+        isSuccess,
+        isUninitialized,
+        isError,
+        error
+    }] = useGetUserMutation()
 
     useEffect(() => {
+        getUser(null).unwrap().then(user => {
+            dispatch(setUser(user))
+        }).catch((err) =>
+            console.log(err)
+        )
+
         if (location.pathname === "/dashboard") {
             setDashboardActive(true)
             setFriendsActive(false)
@@ -56,6 +75,23 @@ const ActiveLayout: React.FC = () => {
         navigate("/profile");
     }
 
+    const isLoadingOrUnitialized = () => {
+        if (isLoading || isUninitialized) {
+            return <Loading />
+        } else {
+            if (isSuccess) {
+                return (
+                    <>
+                        <NavBar handleClickProfile={handleClickProfile} />
+                        <Outlet />
+                    </>
+                )
+            } else {
+                return <Unauthorized />
+            }
+        }
+    }
+
     return (
         <div className='main-active'>
             <SideBar
@@ -67,8 +103,7 @@ const ActiveLayout: React.FC = () => {
                 handleClickFriends={handleClickFriends}
             />
             <div className='second-active'>
-                <NavBar handleClickProfile={handleClickProfile} />
-                <Outlet />
+                {isLoadingOrUnitialized()}
             </div>
         </div>
     )

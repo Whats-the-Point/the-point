@@ -2,10 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import { AuthProvider } from './middleware/context/AuthProvider'
+import { store } from './services/store'
+import { Provider } from 'react-redux'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <AuthProvider>
+  <Provider store={store}>
     <App />
-  </AuthProvider>
+  </Provider>
 )

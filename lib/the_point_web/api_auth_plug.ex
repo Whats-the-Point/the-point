@@ -43,10 +43,13 @@ defmodule ThePointWeb.APIAuthPlug do
         # The store caches will use their default `:ttl` setting. To change the
         # `:ttl`, `Keyword.put(store_config, :ttl, :timer.minutes(10))` can be
         # passed in as the first argument instead of `store_config`.
-        CredentialsCache.put(store_config, access_token, {user, [renewal_token: renewal_token]})
+        store_config
+        |> Keyword.put(:ttl, :timer.minutes(10))
+        |> CredentialsCache.put(access_token, {user, [renewal_token: renewal_token]})
 
-        PersistentSessionCache.put(
-          store_config,
+        store_config
+        |> Keyword.put(:ttl, :timer.hours(1))
+        |> PersistentSessionCache.put(
           renewal_token,
           {user, [access_token: access_token]}
         )
@@ -94,7 +97,7 @@ defmodule ThePointWeb.APIAuthPlug do
   def renew(conn, config) do
     store_config = store_config(config)
 
-    with {:ok, signed_token} <- fetch_access_token(conn),
+    with {:ok, signed_token} <- fetch_renewal_token(conn),
          {:ok, token} <- verify_token(conn, signed_token, config),
          {user, metadata} <- PersistentSessionCache.get(store_config, token) do
       {conn, user} = create(conn, user, config)
@@ -123,6 +126,16 @@ defmodule ThePointWeb.APIAuthPlug do
     case Conn.get_req_header(conn, "authorization") do
       [token | _rest] -> {:ok, token}
       _any -> :error
+    end
+  end
+
+  defp fetch_renewal_token(conn) do
+    Conn.fetch_cookies(conn)
+    |> Map.from_struct()
+    |> get_in([:cookies, "renewal_token"])
+    |> case do
+      nil -> :error
+      token -> {:ok, token}
     end
   end
 
