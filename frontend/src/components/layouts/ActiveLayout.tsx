@@ -80,6 +80,14 @@ const ActiveLayout: React.FC = () => {
         navigate("/profile");
     }
 
+    const handleClickAddMatch = (e: React.MouseEvent<HTMLDivElement>) => {
+        setDashboardActive(false)
+        setFriendsActive(false)
+        setScoreboardActive(false)
+        navigate("/add-match");
+    }
+
+
     const isLoadingOrUnitialized = () => {
         if (isLoading || isUninitialized) {
             return <Loading />
@@ -106,6 +114,7 @@ const ActiveLayout: React.FC = () => {
                 handleClickDashboard={handleClickDashboard}
                 handleClickScoreboard={handleClickScoreboard}
                 handleClickFriends={handleClickFriends}
+                handleClickAddMatch={handleClickAddMatch}
             />
             <div className='second-active'>
                 {isLoadingOrUnitialized()}

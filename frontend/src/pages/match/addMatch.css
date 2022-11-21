@@ -1,0 +1,53 @@
+.select-item{
+    border-style: solid;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 4px 4px 4px 16px;
+    gap: 10px;
+    width: 295px;
+    height: 47px;
+    background: rgba(255, 255, 255, 0.09);
+}
+
+.select-item:hover {
+    background: brown;
+}
+
+.selected-players-item {
+    display: flex;
+    border-style: solid;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 4px 4px 4px 16px;
+    gap: 10px;
+    width: 295px;
+    height: 47px;
+    background: rgba(255, 255, 255, 0.09);
+    border-radius: 4px;
+    border: none;
+}
+
+.score {
+    width: 50px;
+    height: 47px; 
+}
+
+form {
+    gap: 20px;
+}
+
+.winner-check {
+    width: auto;
+}
+
+.winner-check-container {
+    display: flex;
+    align-items: center;
+}

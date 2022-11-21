@@ -16,6 +16,7 @@ import Dashboard from '../pages/dashboard/Dashboard'
 import Friends from '../pages/friends/Friends'
 import Profile from '../pages/profile/Profile'
 import Scoreboard from '../pages/scoreboard/Scoreboard'
+import AddMatch from '../pages/match/AddMatch';
 
 const IndexRoutes: React.FC = () => {
     return (
@@ -44,6 +45,7 @@ const IndexRoutes: React.FC = () => {
                             <Route path="/dashboard" element={<Dashboard />} />
                             <Route path="/friends" element={<Friends />} />
                             <Route path="/scoreboard" element={<Scoreboard />} />
+                            <Route path="/add-match" element={<AddMatch />} />
                         </Route>
                     </Route>
                 </Route>
