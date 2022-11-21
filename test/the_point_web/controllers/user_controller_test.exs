@@ -7,7 +7,7 @@ defmodule ThePointWeb.API.V1.UserControllerTest do
     test "requires user log in", %{conn: conn} do
       insert(:user)
       conn = get(conn, Routes.api_v1_user_path(conn, :show))
-      assert json_response(conn, 401)
+      assert json_response(conn, 403)
     end
 
     test "returns the user successfully", %{conn: conn} do
@@ -32,7 +32,7 @@ defmodule ThePointWeb.API.V1.UserControllerTest do
     test "requires user log in", %{conn: conn} do
       insert(:user)
       conn = post(conn, Routes.api_v1_user_path(conn, :complete_profile, %{}))
-      assert json_response(conn, 401)
+      assert json_response(conn, 403)
     end
 
     test "returns the user successfully", %{conn: conn} do
