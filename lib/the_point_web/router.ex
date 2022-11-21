@@ -51,6 +51,14 @@ defmodule ThePointWeb.Router do
       post "/change-status", FriendshipController, :change_status
       delete "/delete/:friendship_id", FriendshipController, :delete
     end
+
+    scope("/games") do
+      get "/", GameController, :index
+    end
+
+    scope("/match") do
+      post "/create", MatchController, :create
+    end
   end
 
   if Mix.env() == :dev do

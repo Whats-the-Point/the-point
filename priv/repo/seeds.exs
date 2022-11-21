@@ -1,5 +1,6 @@
 # Users
 
+alias ThePoint.Games.Games
 alias ThePoint.Users.Users
 alias ThePoint.Services.SetShortSlug
 
@@ -91,4 +92,28 @@ Users.list_active_users()
     requester_id: eric_cartman.id,
     addressee_id: kyle_broflovski.id,
     status: :blocked
+  })
+
+{:ok, _terraforming_mars} =
+  Games.create_game(%{
+    name: "Terraforming Mars",
+    is_point_system: true,
+    min_players: 2,
+    max_players: 5
+  })
+
+{:ok, _chess} =
+  Games.create_game(%{
+    name: "Chess",
+    is_point_system: false,
+    min_players: 2,
+    max_players: 2
+  })
+
+{:ok, _secret_hitler} =
+  Games.create_game(%{
+    name: "Secret Hitler",
+    is_point_system: false,
+    min_players: 5,
+    max_players: 10
   })
