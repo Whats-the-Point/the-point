@@ -201,4 +201,9 @@ defmodule ThePointWeb.API.V1.FriendshipController do
       render(conn, "success.json")
     end
   end
+
+  def search_friends(conn, %{"username" => username}, current_user) do
+    friends = User.search_friends_by_username(username, current_user)
+    render(conn, "index.json", %{friends: friends})
+  end
 end

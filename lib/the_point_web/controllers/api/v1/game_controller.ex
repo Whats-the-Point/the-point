@@ -23,4 +23,9 @@ defmodule ThePointWeb.API.V1.GameController do
     games = Games.list_games()
     render(conn, "index.json", %{games: games})
   end
+
+  def search(conn, %{"name" => name}, _current_user) do
+    games = Games.get_games_by_name(name)
+    render(conn, "index.json", %{games: games})
+  end
 end
