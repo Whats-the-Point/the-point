@@ -16,8 +16,6 @@ const CallbackGoogle: React.FC = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate()
 
-    console.log("CALLBACK GOOGLE")
-
     const params: CallbackPostParams = {
         code: searchParams.get('code'),
         session_params: {
