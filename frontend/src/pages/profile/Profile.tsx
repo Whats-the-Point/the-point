@@ -27,6 +27,7 @@ const Profile: React.FC = () => {
     const logoutHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         axiosPrivate.delete("/api/v1/session").then(response => {
+            localStorage.clear()
             setAuth({});
         }).catch(error => {
             console.log(error)
