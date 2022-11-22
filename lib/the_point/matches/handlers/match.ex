@@ -11,4 +11,6 @@ defmodule ThePoint.Matches.Handler.Match do
 
     Matches.create_match(attrs)
   end
+
+  def get_user_matches(user), do: Matches.list_user_recent_games(user.id)
 end

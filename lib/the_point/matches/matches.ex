@@ -101,4 +101,16 @@ defmodule ThePoint.Matches do
   def change_match(%Match{} = match, attrs \\ %{}) do
     Match.changeset(match, attrs)
   end
+
+  def list_user_recent_games(user_id) do
+      query =
+        from(match in Match,
+        join: players in assoc(match, :players),
+        where: players.user_id == ^user_id,
+        order_by: [desc: :inserted_at],
+        preload: [:game, players: [:user]]
+      )
+
+    Repo.all(query)
+  end
 end

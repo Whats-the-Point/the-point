@@ -59,6 +59,7 @@ defmodule ThePointWeb.Router do
     end
 
     scope("/match") do
+      get "/", MatchController, :index
       post "/create", MatchController, :create
     end
   end

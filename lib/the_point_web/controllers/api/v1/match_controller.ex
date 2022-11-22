@@ -6,6 +6,11 @@ defmodule ThePointWeb.API.V1.MatchController do
 
   action_fallback(ThePointWeb.API.V1.FallbackController)
 
+  def index(conn, _, current_user) do
+    user_matches = Match.get_user_matches(current_user)
+    render(conn, "index.json", %{matches: user_matches})
+  end
+
   @doc """
 
   ## Request:
