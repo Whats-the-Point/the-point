@@ -1,0 +1,140 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 24px;
+    gap: 16px;
+
+    height: 100%;
+}
+
+.dashboard-container-upper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 16px;
+
+    width: 674px;
+    height: 149px;
+}
+
+.dashboard-container-down {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px;
+    gap: 24px;
+
+    width: -webkit-fill-available;
+    height: 100%;
+
+    background: #1E1E1E;
+    border-radius: 6px;
+    margin-bottom: 132px;
+}
+
+.data-container {
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    width: 329px;
+    height: 149px;
+    background: #1E1E1E;
+    border-radius: 6px;
+}
+
+.dashboard-down-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    gap: 24px;
+    width: -webkit-fill-available;
+}
+
+.dashboard-down-title {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 160%;
+    margin: 0;
+
+    display: flex;
+    align-items: flex-end;
+    letter-spacing: 0.15px;
+}
+
+.dashboard-table {
+    width: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    height: 100%;
+    gap: 10px;
+}
+
+.dashboard-table-header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0px 24px;
+    gap: 41px;
+
+    width: -webkit-fill-available;
+    height: 24px;
+}
+
+.dashboard-table-header p {
+    height: 23px;
+
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 166%;
+    /* or 23px */
+
+    letter-spacing: 0.4px;
+
+    /* Light Gay */
+
+    color: #E7E7E7;
+
+}
+
+.vector {
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    width: -webkit-fill-available;
+    height: 0px;
+}
+
+.dashboard-data-y-scroll {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 10px 8px;
+    gap: 10px;
+    height: 100%;
+    width: -webkit-fill-available;
+    overflow-y: scroll;
+    position: relative;
+}
+
+.dashboard-data-x-scroll {
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+
+    width: -webkit-fill-available;
+    overflow-x: scroll;
+    position: absolute;
+}
