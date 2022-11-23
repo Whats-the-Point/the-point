@@ -236,7 +236,7 @@ const AddMatch = () => {
             <h3>Add Match</h3>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>{errMsg}</p>
             {isLoading ? <p>Loading...</p> : ""}
-            <form onSubmit={handleSubmit}>
+            <form className='search-form' onSubmit={handleSubmit}>
                 <div>
                     <input
                         placeholder={"Search games by name"}
@@ -248,12 +248,7 @@ const AddMatch = () => {
                     />
                     {gameFocus ? loadGameSelectContent() : null}
                 </div>
-                {selectedGame ?
-                    <div>
-                        <p>Selected Game: {selectedGame.name}</p>
-                        <p>Allowed Number of Players: {selectedGame.min_players}-{selectedGame.max_players}</p>
-                    </div>
-                    : null}
+
                 <div>
                     <input
                         placeholder={"Add friends by username"}
@@ -265,6 +260,15 @@ const AddMatch = () => {
                     />
                     {usernameFocus ? loadUserSelectContent() : null}
                 </div>
+            </form>
+            <div className='second-content'>
+
+                {selectedGame ?
+                    <div>
+                        <p>Selected Game: {selectedGame.name}</p>
+                        <p>Allowed Number of Players: {selectedGame.min_players}-{selectedGame.max_players}</p>
+                    </div>
+                    : null}
                 {selectedUsers ?
                     <div>
                         <p>Selected Players:</p>
@@ -301,8 +305,8 @@ const AddMatch = () => {
                     </div>
                     : null}
                 <Button type="submit" disabled={!validNumberOfPlayers}>Save</Button>
-            </form>
-        </motion.div>
+            </div>
+        </motion.div >
 
     )
 }

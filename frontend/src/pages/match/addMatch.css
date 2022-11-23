@@ -1,3 +1,15 @@
+.search-form {
+    flex-direction: row;
+}
+
+.second-content {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-top: 50px;
+}
+
 .select-item{
     border-style: solid;
     display: flex;
