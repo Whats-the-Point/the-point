@@ -6,6 +6,7 @@ import useAuth from '../../middleware/hooks/useAuth'
 interface Props {
     match: Match
 }
+
 const sortPlayers = (match: Match) => {
     if (match.game.is_point_system) {
         return match.players.sort((a, b) => (a.score < b.score) ? 1 : -1)
@@ -89,16 +90,20 @@ export const TableItem: React.FC<Props> = ({ match }) => {
     }
 
     return (
-        <div className='table-item' key={match.id}>
-            <div className='first-item'>
-                <div className='first-item-icon'>{gameInitials()}</div>
-                <p>{match.game.name}</p>
-            </div>
-            <p>{dateFormatString()}</p>
-            {playerItems(match.players)}
-            {playerItems(getWinners())}
-            <p>{match.game.is_point_system ? sortedPlayers[0].score : "-"}</p>
-            <p>{yourPlace()}</p>
-        </div>
+        <tr>
+            <td>
+                <div className='first-item'>
+                    <div className='first-item-icon'>{gameInitials()}</div>
+                    <p>{match.game.name}</p>
+                </div>
+            </td>
+            <td>{dateFormatString()}</td>
+            <td>
+                {playerItems(match.players)}
+            </td>
+            <td>{playerItems(getWinners())}</td>
+            <td>{match.game.is_point_system ? sortedPlayers[0].score : "-"}</td>
+            <td>{yourPlace()}</td>
+        </tr>
     )
 }

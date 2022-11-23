@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import "./dashboard.css"
-import { TableItem } from '../../components/table/TableItem'
 import useAxiosPrivate from '../../middleware/hooks/useAxiosPrivate'
 import { Match } from '../../@types/games'
+import Table from '../../components/table/Table'
 
 const Dashboard: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([])
@@ -53,22 +53,7 @@ const Dashboard: React.FC = () => {
           <a>See all</a>
         </div>
         <div className='dashboard-table'>
-          <div className='dashboard-table-header'>
-            <p>Game</p>
-            <p>Date</p>
-            <p>Players</p>
-            <p>Winner</p>
-            <p>Highest Score</p>
-            <p>Your place</p>
-          </div>
-          <div className="vector" />
-          <div className='dashboard-data-y-scroll'>
-            <div className='dashboard-data-x-scroll'>
-              {matches.map((match, i) => {
-                return <TableItem key={match.id} match={match}/>
-              })}
-            </div>
-          </div>
+          <Table matches={matches} />
         </div>
       </div>
 
