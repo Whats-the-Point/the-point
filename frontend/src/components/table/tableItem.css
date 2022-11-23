@@ -91,6 +91,7 @@
     padding: 0px;
     gap: 4px;
 }
+
 .avatares-div p {
     margin: 0 6px;
 }
@@ -160,4 +161,13 @@
 .avatar-8 {
     order: 7;
     z-index: 0;
+}
+
+.single-player-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    height: 32px;
+    gap: 14px;
 }
