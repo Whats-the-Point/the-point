@@ -12,7 +12,7 @@ const useRefreshToken = () => {
             accessToken: response.data.access_token,
             role: response.data.user_status
         });
-        return response.data.accessToken;
+        return response.data.access_token;
     }
 
     return refresh;

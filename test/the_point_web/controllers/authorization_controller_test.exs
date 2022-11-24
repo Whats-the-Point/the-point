@@ -72,7 +72,6 @@ defmodule ThePointWeb.API.V1.AuthorizationControllerTest do
 
       assert json = json_response(conn, 200)
       assert json["access_token"]
-      assert json["renewal_token"]
     end
 
     test "with invalid params", %{conn: conn} do

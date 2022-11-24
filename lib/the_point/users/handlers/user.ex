@@ -58,4 +58,7 @@ defmodule ThePoint.Users.Handler.User do
 
   def get_blocked_users(current_user),
     do: Users.list_user_blocked_friends(current_user.id)
+
+  def search_friends_by_username(username, current_user),
+    do: Users.search_friends_by_username(username, current_user.id)
 end

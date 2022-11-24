@@ -3,12 +3,13 @@ import useAuth from "../middleware/hooks/useAuth";
 
 const RequireNoAuth: React.FC = () => {
     const location = useLocation();
-    const { auth } = useAuth();
+    const persist: boolean = JSON.parse(localStorage.getItem("persist")) || false
 
     return (
-        auth?.accessToken ?
+        persist ?
             <Navigate to="/profile" state={{ from: location }} replace />
-            : <Outlet />
+            :
+            <Outlet />
     );
 }
 
