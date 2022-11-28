@@ -3,39 +3,35 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../components/button/Button';
 import { motion } from 'framer-motion';
 import "./profile.css"
-import { useLogoutMutation } from '../../middleware/context/authApiSlice'
-import { logOut, selectCurrentUser } from '../../services/slices/authSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import useAuth from "../../middleware/hooks/useAuth";
+import useAxiosPrivate from '../../middleware/hooks/useAxiosPrivate';
 
 const Profile: React.FC = () => {
-    const [firstName, setFirstName] = useState<string>('');
-    const [lastName, setLastName] = useState<string>('');
-    const [username, setUsername] = useState<string>('');
-    const [email, setEmail] = useState<string>('');
-    const [shortSlug, setShortSlug] = useState<string>('');
+    const { auth, setAuth } = useAuth();
+    const [firstName, setFirstName] = useState<string>(auth.user?.first_name);
+    const [lastName, setLastName] = useState<string>(auth.user?.last_name);
+    const [username, setUsername] = useState<string>(auth.user?.username);
+    const [email, setEmail] = useState<string>(auth.user?.email);
+    const [shortSlug, setShortSlug] = useState<string>(auth.user?.short_slug);
     const navigate = useNavigate()
-    const [logout] = useLogoutMutation()
-    const user = useSelector(selectCurrentUser);
-    const dispatch = useDispatch()
+    const axiosPrivate = useAxiosPrivate();
 
     useEffect(() => {
-        setFirstName(user?.first_name)
-        setLastName(user?.last_name)
-        setUsername(user?.username)
-        setEmail(user?.email)
-        setShortSlug(user?.short_slug)
-    }, [user]);
+        setFirstName(auth.user?.first_name)
+        setLastName(auth.user?.last_name)
+        setUsername(auth.user?.username)
+        setEmail(auth.user?.email)
+        setShortSlug(auth.user?.short_slug)
+    }, [auth.user]);
 
     const logoutHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-
-        try {
-            logout(null).unwrap()
-            dispatch(logOut(null))
-            navigate("/");
-        } catch (err) {
-            console.log(err)
-        }
+        axiosPrivate.delete("/api/v1/session").then(response => {
+            localStorage.clear()
+            setAuth({});
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     return (

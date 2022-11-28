@@ -17,6 +17,7 @@ interface Props {
     handleClickDashboard: React.MouseEventHandler<HTMLAnchorElement>;
     handleClickFriends: React.MouseEventHandler<HTMLAnchorElement>;
     handleClickScoreboard: React.MouseEventHandler<HTMLAnchorElement>;
+    handleClickAddMatch?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const SideBar: React.FC<Props> = ({
@@ -25,7 +26,8 @@ const SideBar: React.FC<Props> = ({
     scoreboardActive,
     handleClickDashboard,
     handleClickFriends,
-    handleClickScoreboard
+    handleClickScoreboard,
+    handleClickAddMatch
 }) => {
     const [open, setOpen] = useState<boolean>(true);
     const [sideBarWidth, setSideBarWidth] = useState<string>("0%");
@@ -36,7 +38,7 @@ const SideBar: React.FC<Props> = ({
     useEffect(() => {
         setSideBarWidth("319px")
     }, [])
-    
+
 
     const handleArrowSideBar = (e: React.MouseEvent<HTMLImageElement>) => {
         if (open) {
@@ -73,14 +75,14 @@ const SideBar: React.FC<Props> = ({
             >
                 <div className={`sideBar-top-images ${open ? "open" : "close"}`}>
                     <motion.img animate={{ width: logoWidth }} className="sideBar-logo" src={logo} alt="Whats the point" />
-                    <motion.img animate={{rotate: rotationArrow }}onClick={handleArrowSideBar} src={arrowDown} alt="open-close arrow" />
+                    <motion.img animate={{ rotate: rotationArrow }} onClick={handleArrowSideBar} src={arrowDown} alt="open-close arrow" />
                 </div>
 
                 <SideBarItem open={open} active={dashboardActive} image={dashboard} onClick={handleClickDashboard}>My Dashboard</SideBarItem>
                 <SideBarItem open={open} active={friendsActive} image={friends} onClick={handleClickFriends}>My Friends</SideBarItem>
                 <SideBarItem open={open} active={scoreboardActive} image={scoreboard} onClick={handleClickScoreboard}>Scoreboard</SideBarItem>
             </motion.div>
-            <SideBarButton animateWidth={buttonWidth} open={open} />
+            <SideBarButton onClick={handleClickAddMatch} animateWidth={buttonWidth} open={open} />
         </motion.nav>
     )
 }

@@ -47,9 +47,20 @@ defmodule ThePointWeb.Router do
       get "/", FriendshipController, :index
       get "/blocked", FriendshipController, :blocked_users
       get "/pending", FriendshipController, :list_pending
+      get "/search", FriendshipController, :search_friends
       post "/create", FriendshipController, :create
       post "/change-status", FriendshipController, :change_status
       delete "/delete/:friendship_id", FriendshipController, :delete
+    end
+
+    scope("/games") do
+      get "/", GameController, :index
+      get "/search", GameController, :search
+    end
+
+    scope("/match") do
+      get "/", MatchController, :index
+      post "/create", MatchController, :create
     end
   end
 

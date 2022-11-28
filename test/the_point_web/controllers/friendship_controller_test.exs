@@ -7,7 +7,7 @@ defmodule ThePointWeb.API.V1.FriendshipControllerTest do
     test "requires user log in", %{conn: conn} do
       insert(:user)
       conn = get(conn, Routes.api_v1_friendship_path(conn, :index))
-      assert json_response(conn, 401)
+      assert json_response(conn, 403)
     end
 
     test "returns the user successfully", %{conn: conn} do

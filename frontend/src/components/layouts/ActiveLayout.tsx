@@ -3,34 +3,39 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
 import NavBar from '../navBar/NavBar'
 import SideBar from '../sideBar/SideBar'
-import { useGetUserMutation } from '../../middleware/context/userSlice';
-import { setUser } from '../../services/slices/authSlice';
-import { useDispatch } from 'react-redux'
 import "./activeLayout.css"
 import Loading from '../loading/Loading'
 import Unauthorized from '../../pages/Unauthorized'
+import useAuth from "../../middleware/hooks/useAuth";
+import useAxiosPrivate from '../../middleware/hooks/useAxiosPrivate';
 
 const ActiveLayout: React.FC = () => {
     const [dashboardActive, setDashboardActive] = useState<boolean>(false)
     const [friendsActive, setFriendsActive] = useState<boolean>(false)
     const [scoreboardActive, setScoreboardActive] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
+    const [isSuccess, setisSuccess] = useState<boolean>(false)
+    const [isUninitialized, setisUninitialized] = useState<boolean>(true)
     const navigate = useNavigate();
     const location = useLocation()
-    const dispatch = useDispatch()
-    const [getUser, {
-        isLoading,
-        isSuccess,
-        isUninitialized,
-        isError,
-        error
-    }] = useGetUserMutation()
+    const axiosPrivate = useAxiosPrivate();
+    const { auth, setAuth } = useAuth();
 
     useEffect(() => {
-        getUser(null).unwrap().then(user => {
-            dispatch(setUser(user))
-        }).catch((err) =>
-            console.log(err)
-        )
+        setisUninitialized(false)
+        axiosPrivate.get("/api/v1/user").then(response => {
+            setAuth({
+                user: response.data,
+                accessToken: auth.accessToken,
+                role: auth.role
+            })
+            setIsLoading(false)
+            setisSuccess(true)
+        }).catch(error => {
+            setIsLoading(false)
+            setisSuccess(false)
+            console.log(error);
+        })
 
         if (location.pathname === "/dashboard") {
             setDashboardActive(true)
@@ -75,6 +80,14 @@ const ActiveLayout: React.FC = () => {
         navigate("/profile");
     }
 
+    const handleClickAddMatch = (e: React.MouseEvent<HTMLDivElement>) => {
+        setDashboardActive(false)
+        setFriendsActive(false)
+        setScoreboardActive(false)
+        navigate("/add-match");
+    }
+
+
     const isLoadingOrUnitialized = () => {
         if (isLoading || isUninitialized) {
             return <Loading />
@@ -101,6 +114,7 @@ const ActiveLayout: React.FC = () => {
                 handleClickDashboard={handleClickDashboard}
                 handleClickScoreboard={handleClickScoreboard}
                 handleClickFriends={handleClickFriends}
+                handleClickAddMatch={handleClickAddMatch}
             />
             <div className='second-active'>
                 {isLoadingOrUnitialized()}

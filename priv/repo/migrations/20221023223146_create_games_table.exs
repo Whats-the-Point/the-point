@@ -10,6 +10,8 @@ defmodule ThePoint.Repo.Migrations.CreateGamesTable do
       add :min_players, :integer
       add :max_players, :integer
       add :slug, :uuid, default: fragment("uuid_generate_v4()"), null: false
+
+      timestamps()
     end
   end
 end

@@ -4,18 +4,32 @@ import { UserInfo } from '../../@types/user'
 import { useGetFriendsMutation } from '../../middleware/context/friendsSlice'
 import './Friends.css'
 import AddFriend from './AddFriend'
+import { UserInfo } from '../../@types/auth';
+import useAxiosPrivate from '../../middleware/hooks/useAxiosPrivate';
 
 
 const Friends: React.FC = () => {
   const [friends, setFriends] = useState<UserInfo[]>([])
-  const [getFriendsList, { isLoading, isSuccess, isError, error }] = useGetFriendsMutation()
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isSuccess, setIsSuccess] = useState<boolean>(false)
+  const [isError, setIsError] = useState<boolean>(false)
+  const [error, setError] = useState<string>('')
+  const axiosPrivate = useAxiosPrivate();
+
+
 
   useEffect(() => {
-    getFriendsList(null).unwrap().then(data => {
-      setFriends(data.data.friends)
-    }).catch((err) =>
-      console.log(err)
-    )
+    axiosPrivate.get("/api/v1/friendship").then(response => {
+      setIsSuccess(true)
+      setIsLoading(false)
+      setFriends(response.data.data.friends)
+    }).catch(error => {
+      setIsLoading(false)
+      setIsSuccess(false)
+      setError(error)
+      setIsError(true)
+      console.log(error);
+    })
 
   }, []);
 

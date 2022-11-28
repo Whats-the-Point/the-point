@@ -2,6 +2,9 @@ defmodule ThePoint.Games.Games do
   @moduledoc """
   The Games context
   """
+
+  import Ecto.Query
+
   alias ThePoint.Repo
   alias ThePoint.Games.Game
 
@@ -56,5 +59,14 @@ defmodule ThePoint.Games.Games do
     game
     |> Game.changeset(attrs)
     |> Repo.update()
+  end
+
+  def get_games_by_name(name) do
+    query =
+      from(game in Game,
+        where: ilike(game.name, ^"%#{name}%")
+      )
+
+    Repo.all(query)
   end
 end

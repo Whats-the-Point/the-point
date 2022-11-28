@@ -1,10 +1,8 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Loading from "../../components/loading/Loading"
-
-import { useDispatch } from 'react-redux'
-import { setCredentials } from '../../services/slices/authSlice'
-import { useCallbackMutation } from '../../middleware/context/authApiSlice'
+import axios from '../../middleware/api/axios';
+import useAuth from "../../middleware/hooks/useAuth";
 
 interface CallbackPostParams {
     code: string | null;
@@ -14,11 +12,8 @@ interface CallbackPostParams {
 }
 
 const CallbackGoogle: React.FC = () => {
+    const { auth, setAuth } = useAuth();
     const [searchParams, setSearchParams] = useSearchParams();
-    const [callback] = useCallbackMutation()
-
-
-    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const params: CallbackPostParams = {
@@ -27,14 +22,18 @@ const CallbackGoogle: React.FC = () => {
             state: searchParams.get('state')
         }
     }
-
     useEffect(() => {
-        callback(params).unwrap().then(response => {
-            dispatch(setCredentials({ ...response }))
-            if (response.user_status == "initiated") {
-                navigate('/register')
+        axios.post('/api/v1/auth/google/callback', params).then(response => {
+            const user = {};
+            const accessToken = response.data.access_token;
+            const role = response.data.user_status;
+
+            setAuth({ user: user, accessToken: accessToken, role: role });
+
+            if (response.data.user_status === "initiated") {
+                navigate("/register")
             } else {
-                navigate('/profile')
+                navigate("/profile", { replace: true }); // go to user profile or dashboard
             }
         }).catch((err) => {
             console.log(err)

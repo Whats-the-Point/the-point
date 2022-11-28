@@ -71,6 +71,26 @@ defmodule ThePoint.Users.Users do
     Repo.all(requested_friends) ++ Repo.all(addressed_friends)
   end
 
+  def search_friends_by_username(username, user_id) do
+    requested_friends =
+      from(user in User,
+        join: fs in assoc(user, :friendships),
+        where: fs.addressee_id == ^user_id and fs.status == :accepted,
+        where: user.id != ^user_id,
+        where: ilike(user.username, ^"%#{username}%")
+      )
+
+    addressed_friends =
+      from(user in User,
+        join: fs in assoc(user, :reverse_friendships),
+        where: fs.requester_id == ^user_id and fs.status == :accepted,
+        where: user.id != ^user_id,
+        where: ilike(user.username, ^"%#{username}%")
+      )
+
+    Repo.all(requested_friends) ++ Repo.all(addressed_friends)
+  end
+
   def list_user_pending_friendships(user_id) do
     query =
       from(fs in Friendship,

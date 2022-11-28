@@ -1,0 +1,48 @@
+table {
+    width: -webkit-fill-available;
+    border-collapse: collapse;
+}
+
+tbody {
+    overflow-y: auto;
+    /* Trigger vertical scroll    */
+    overflow-x: hidden;
+}
+
+th {
+    border-bottom: 3px solid rgba(255, 255, 255, 0.16);
+    padding-bottom: 10px;
+    text-align: left;
+}
+
+td {
+    height: 85px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    text-align: left;
+    vertical-align: middle;
+}
+
+.fixed_header {
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: -webkit-fill-available;
+    height: 100%;
+}
+
+.fixed_header tbody {
+    display: block;
+    width: 100%;
+    overflow: auto;
+    height: 100%;
+    position: relative;
+}
+
+.fixed_header thead tr {
+    display: flex;
+}
+
+.fixed_header th,
+.fixed_header td {
+  text-align: left;
+  width: 16.6%;
+}

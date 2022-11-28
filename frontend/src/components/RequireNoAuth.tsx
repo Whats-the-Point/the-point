@@ -1,15 +1,15 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectCurrentToken } from "../services/slices/authSlice";
+import useAuth from "../middleware/hooks/useAuth";
 
 const RequireNoAuth: React.FC = () => {
-    const token = useSelector(selectCurrentToken)
     const location = useLocation();
+    const persist: boolean = JSON.parse(localStorage.getItem("persist")) || false
 
     return (
-        token ?
+        persist ?
             <Navigate to="/profile" state={{ from: location }} replace />
-            : <Outlet />
+            :
+            <Outlet />
     );
 }
 
